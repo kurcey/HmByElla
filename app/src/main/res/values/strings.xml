@@ -1,0 +1,84 @@
+<resources>
+    <!-- App variables.-->
+    <string name="app_name">Sewing Mate</string>
+    <string name="nav_header_title">Sewing Mate</string>
+    <string name="nav_header_subtitle">kurt.wanliss@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_male_measurement">MaleMeasurementActivity</string>
+    <string name="title_activity_female_measurement">FemaleMeasurementActivity</string>
+    <string name="title_activity_login">Login</string>
+
+    <!-- client contact fragment variables. -->
+    <string name="contact">contact</string>
+    <string name="client_fragment">client_fragment</string>
+    <string name="client_first_name">First Name</string>
+    <string name="client_middle_name">Middle Name</string>
+    <string name="client_last_name">Last Name</string>
+    <string name="client_email">Email Address</string>
+    <string name="client_phone_number">Phone Number</string>
+    <string name="client_address">Address</string>
+    <string name="email">email Address</string>
+    <string name="add_female">Add female measurements</string>
+    <string name="add_male">Add male measurements</string>
+    <string name="client_info">Insert Client Info</string>
+
+    <string name="male_female">Choose male or female</string>
+    <string name="measurement">Inches</string>
+    <string name="zero">0</string>
+
+    <!-- male measurement fragment variables. -->
+    <string name="male_fragment">male_fragment</string>
+    <string name="chest">Chest - Measured under the arms</string>
+    <string name="waist_male">Waist - Measured slightly below the navel</string>
+    <string name="hips_male">Hips/Seat - Measured approximately 6” below the waist</string>
+    <string name="rise">Rise - The difference between the outseam and the inseam</string>
+    <string name="length_male">Length, Neck to Waist - Measured down the spine</string>
+    <string name="inseam_male">Inseam - Measured from crotch to floor, on the inside of the leg</string>
+    <string name="outseam">Outseam - Measured on the side from waist to floor, on the outside of the leg</string>
+
+    <!-- female measurement fragment variables. -->
+    <string name="female_fragment">female_fragment</string>
+
+    <string name="neck">Neck - Taken around neck</string>
+    <string name="front_width">Front Width - Taken across from arm crease to arm crease</string>
+    <string name="high_bust">High Bust - Taken around the body above the bust and high under the arms</string>
+    <string name="bust">Bust (chest) - Measured at the nipple line</string>
+    <string name="full_front_width">Full Front Width - Taken side seam to side seam across full bust</string>
+    <string name="waist">Waist - Measured at the narrowest point</string>
+    <string name="high_hip">High Hip - Usually 3”-3 &#189;” below waist at fullest part of tummy</string>
+    <string name="hips">Hips - Measured at the broadest (largest) point</string>
+    <string name="thigh">Thigh - Fullest part of upper leg</string>
+    <string name="knee">Knee</string>
+    <string name="calf">Calf</string>
+    <string name="ankle">Ankle</string>
+    <string name="length_neck_to_waist">Length (neck to waist) - Measured down the spine</string>
+    <string name="length_waist_to_floor">Length (waist to desired finished distance from floor) - Measured down the spine</string>
+    <string name="inseam">Inseam - Measured from the crotch to desired finished distance from floor</string>
+    <string name="crotch_depth">Crotch Depth - Measured seated, on the side, from seat to waist</string>
+    <string name="armscye">Armscye Depth - the opening for your arm </string>
+    <string name="shoulder_elbow">Shoulder Elbow - Taken with arm bent and hand resting between waist and hip</string>
+    <string name="elbow_wrist">Elbow Wrist</string>
+    <string name="bicep">Bicep - Fullest part of upper arm</string>
+    <string name="wrist">Wrist - Taken around prominent wrist bone</string>
+
+    <string name="back_waist_length">Back Waist Length - Taken from prominent bone at base of neck to waist</string>
+    <string name="cross_back_width">Cross Back Width - Taken approximately 4” below base of neck across back from armhole to armhole</string>
+    <string name="full_back_width">Full Back Width - Taken across back from side seam to side seam</string>
+    <string name="waist_knee">Waist to knee (hem) - Lengths will vary according to styles</string>
+    <string name="waist_calf">Waist to calf</string>
+    <string name="waist_ankle">Waist to ankle</string>
+    <string name="waist_floor">Waist to floor</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_storage">StorageActivity</string>
+
+
+</resources>
