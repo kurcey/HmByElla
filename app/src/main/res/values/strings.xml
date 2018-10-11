@@ -80,5 +80,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_storage">StorageActivity</string>
 
+    <string name="error_message">There was an error getting the data. Please check your internet
+        connection and try again.</string>
+    <string name="img_description">This is movie poster</string>
+    <string name="imageSize">w500</string>
 
 </resources>

@@ -25,4 +25,7 @@
     <dimen name="measurement_margin">8dp</dimen>
     <dimen name="measurement_margin_left">24dp</dimen>
 
+    <dimen name="error_margin">16sp</dimen>
+    <dimen name="error_text_size">22sp</dimen>
+
 </resources>
