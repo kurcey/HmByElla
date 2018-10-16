@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Copyright 2018 Kurt Wanliss
+
+  All rights reserved under the copyright laws of the United States
+  and applicable international laws, treaties, and conventions.
+
+  You may freely redistribute and use this sample code, with or
+  without modification, provided you include the original copyright
+  notice and use restrictions.
+-->
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
@@ -20,6 +32,10 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="Settings" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="About Us" />
     </group>
 
     <item android:title="Communicate">

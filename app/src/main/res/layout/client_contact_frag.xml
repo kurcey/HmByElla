@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Copyright 2018 Kurt Wanliss
+
+  All rights reserved under the copyright laws of the United States
+  and applicable international laws, treaties, and conventions.
+
+  You may freely redistribute and use this sample code, with or
+  without modification, provided you include the original copyright
+  notice and use restrictions.
+-->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,9 +24,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/contact_margin"
-        android:layout_marginEnd="@dimen/contact_margin"
         android:layout_marginStart="@dimen/contact_margin"
+        android:layout_marginEnd="@dimen/contact_margin"
+        android:layout_marginBottom="@dimen/contact_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,9 +36,9 @@
             android:id="@+id/label_f_name"
             android:layout_width="@dimen/contact_label_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginStart="@dimen/contact_start_left_margin"
             android:layout_marginTop="@dimen/contact_top_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:contentDescription="@string/client_first_name"
             android:gravity="center_vertical"
             android:scaleType="center"
@@ -39,9 +51,9 @@
             android:id="@+id/first_name"
             android:layout_width="@dimen/contact_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginStart="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_top_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:ems="10"
             android:hint="@string/client_first_name"
             android:inputType="textPersonName"
@@ -68,8 +80,8 @@
             android:id="@+id/middle_name"
             android:layout_width="@dimen/contact_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:ems="10"
             android:hint="@string/client_middle_name"
             android:inputType="textPersonName"
@@ -96,8 +108,8 @@
             android:id="@+id/last_name"
             android:layout_width="@dimen/contact_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:ems="10"
             android:hint="@string/client_last_name"
             android:inputType="textPersonName"
@@ -110,9 +122,9 @@
             android:id="@+id/label_email"
             android:layout_width="@dimen/contact_label_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginStart="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:contentDescription="@string/client_email"
             android:gravity="center_vertical"
             android:scaleType="center"
@@ -125,8 +137,8 @@
             android:id="@+id/email_address"
             android:layout_width="@dimen/contact_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:ems="10"
             android:hint="@string/client_email"
             android:inputType="textEmailAddress"
@@ -138,9 +150,9 @@
             android:id="@+id/label_ph_number"
             android:layout_width="@dimen/contact_label_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginStart="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:contentDescription="@string/client_phone_number"
             android:gravity="center_vertical"
             android:scaleType="center"
@@ -153,8 +165,8 @@
             android:id="@+id/phone_number"
             android:layout_width="@dimen/contact_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:ems="10"
             android:hint="@string/client_phone_number"
             android:inputType="phone"
@@ -166,9 +178,9 @@
             android:id="@+id/label_address"
             android:layout_width="@dimen/contact_label_width"
             android:layout_height="@dimen/contact_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginStart="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:contentDescription="@string/client_address"
             android:gravity="center_vertical"
             android:scaleType="center"
@@ -181,8 +193,8 @@
             android:id="@+id/address"
             android:layout_width="@dimen/contact_width"
             android:layout_height="@dimen/contact_large_height"
-            android:layout_marginEnd="@dimen/contact_margin"
             android:layout_marginTop="@dimen/contact_margin"
+            android:layout_marginEnd="@dimen/contact_margin"
             android:ems="10"
             android:hint="@string/client_address"
             android:inputType="textMultiLine"

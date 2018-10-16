@@ -1,3 +1,15 @@
+/*
+        Copyright 2018 Kurt Wanliss
+
+        All rights reserved under the copyright laws of the United States
+        and applicable international laws, treaties, and conventions.
+
+        You may freely redistribute and use this sample code, with or
+        without modification, provided you include the original copyright
+        notice and use restrictions.
+
+*/
+
 package com.wanliss.kurt.sewingmate;
 
 import android.os.Bundle;
@@ -14,6 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactActivity extends AppCompatActivity implements ClientContact.callOtherFragment {
+    private MenuItem mSignIn;
 
     private Menu mDrawerMenu;
     private ClientContact mClientContactFragment;
@@ -40,9 +54,9 @@ public class ContactActivity extends AppCompatActivity implements ClientContact.
     private String mFemaleFragment;
     private String mMaleFragment;
 
-    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference mClientContactInfo = mDatabase.getReference("users/" + mUser.getUid());
+    private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final DatabaseReference mClientContactInfo = mDatabase.getReference("users/GlJk1ty08Bgtvdbtk6Akyytka983" );
     private ClientContactDTO mContact;
 
     private RecyclerView mContactRecyclerView;
@@ -54,23 +68,29 @@ public class ContactActivity extends AppCompatActivity implements ClientContact.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-       // setTheme(R.style.AppTheme);
+        // setTheme(R.style.AppTheme);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavDrawer( this ));
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavDrawer(this));
         this.mDrawerMenu = navigationView.getMenu();
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        mSignIn = mDrawerMenu.findItem(R.id.nav_sign_in);
+        if (mUser != null)
+            mSignIn.setTitle("sign out " + mUser.getDisplayName());
+        else
+            mSignIn.setTitle("sign in");
+
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,8 +99,8 @@ public class ContactActivity extends AppCompatActivity implements ClientContact.
             }
         });
 
-        mAllClients = new ArrayList<ClientContactDTO>();
-        mContactRecyclerView = (RecyclerView) findViewById(R.id.contact_list);
+        mAllClients = new ArrayList<>();
+        mContactRecyclerView = findViewById(R.id.contact_list);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mContactRecyclerView.setLayoutManager(mLinearLayoutManager);
 
@@ -160,19 +180,19 @@ public class ContactActivity extends AppCompatActivity implements ClientContact.
     }
 
     private void getAllClients(DataSnapshot dataSnapshot) {
-        for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+        for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
             ClientContactDTO singleClient = singleSnapshot.getValue(ClientContactDTO.class);
-            mAllClients.add( singleClient);
+            mAllClients.add(singleClient);
             mContactRecyclerViewAdapter = new ContactRecyclerViewAdapter(ContactActivity.this, mAllClients);
             mContactRecyclerView.setAdapter(mContactRecyclerViewAdapter);
         }
     }
 
-    private void clientDeletion(DataSnapshot dataSnapshot){
-        for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
+    private void clientDeletion(DataSnapshot dataSnapshot) {
+        for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
             ClientContactDTO singleClient = singleSnapshot.getValue(ClientContactDTO.class);
-            for(int i = 0; i < mAllClients.size(); i++){
-                if(mAllClients.get(i).getClass().equals(singleClient)){
+            for (int i = 0; i < mAllClients.size(); i++) {
+                if (mAllClients.get(i).getClass().equals(singleClient)) {
                     mAllClients.remove(i);
                 }
             }

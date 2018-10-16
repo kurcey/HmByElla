@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Copyright 2018 Kurt Wanliss
+
+  All rights reserved under the copyright laws of the United States
+  and applicable international laws, treaties, and conventions.
+
+  You may freely redistribute and use this sample code, with or
+  without modification, provided you include the original copyright
+  notice and use restrictions.
+-->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +23,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
@@ -58,9 +70,9 @@
             android:id="@+id/m_waist"
             android:layout_width="@dimen/measurement_width"
             android:layout_height="@dimen/measurement_height"
-            android:layout_marginEnd="@dimen/measurement_margin"
             android:layout_marginStart="@dimen/measurement_margin_left"
             android:layout_marginTop="@dimen/measurement_between_margin"
+            android:layout_marginEnd="@dimen/measurement_margin"
             android:ems="10"
             android:hint="@string/measurement"
             android:inputType="number"
@@ -86,9 +98,9 @@
             android:id="@+id/m_hips"
             android:layout_width="@dimen/measurement_width"
             android:layout_height="@dimen/measurement_height"
-            android:layout_marginEnd="@dimen/measurement_margin"
             android:layout_marginStart="@dimen/measurement_margin_left"
             android:layout_marginTop="@dimen/measurement_between_margin"
+            android:layout_marginEnd="@dimen/measurement_margin"
             android:ems="10"
             android:hint="@string/measurement"
             android:inputType="number"
@@ -114,9 +126,9 @@
             android:id="@+id/m_rise"
             android:layout_width="@dimen/measurement_width"
             android:layout_height="@dimen/measurement_height"
-            android:layout_marginEnd="@dimen/measurement_margin"
             android:layout_marginStart="28dp"
             android:layout_marginTop="@dimen/measurement_between_margin"
+            android:layout_marginEnd="@dimen/measurement_margin"
             android:ems="10"
             android:hint="@string/measurement"
             android:inputType="number"
@@ -142,9 +154,9 @@
             android:id="@+id/m_length"
             android:layout_width="@dimen/measurement_width"
             android:layout_height="@dimen/measurement_height"
-            android:layout_marginEnd="@dimen/measurement_margin"
             android:layout_marginStart="28dp"
             android:layout_marginTop="@dimen/measurement_between_margin"
+            android:layout_marginEnd="@dimen/measurement_margin"
             android:ems="10"
             android:hint="@string/measurement"
             android:inputType="number"
@@ -170,9 +182,9 @@
             android:id="@+id/m_inseam"
             android:layout_width="@dimen/measurement_width"
             android:layout_height="@dimen/measurement_height"
-            android:layout_marginEnd="@dimen/measurement_margin"
             android:layout_marginStart="@dimen/measurement_margin_left"
             android:layout_marginTop="@dimen/measurement_between_margin"
+            android:layout_marginEnd="@dimen/measurement_margin"
             android:ems="10"
             android:hint="@string/measurement"
             android:inputType="number"
@@ -198,9 +210,9 @@
             android:id="@+id/m_crotch"
             android:layout_width="@dimen/measurement_width"
             android:layout_height="@dimen/measurement_height"
-            android:layout_marginEnd="@dimen/measurement_margin"
             android:layout_marginStart="@dimen/measurement_margin_left"
             android:layout_marginTop="@dimen/measurement_between_margin"
+            android:layout_marginEnd="@dimen/measurement_margin"
             android:ems="10"
             android:hint="@string/measurement"
             android:inputType="number"

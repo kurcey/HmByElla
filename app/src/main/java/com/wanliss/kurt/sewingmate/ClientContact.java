@@ -1,3 +1,15 @@
+/*
+        Copyright 2018 Kurt Wanliss
+
+        All rights reserved under the copyright laws of the United States
+        and applicable international laws, treaties, and conventions.
+
+        You may freely redistribute and use this sample code, with or
+        without modification, provided you include the original copyright
+        notice and use restrictions.
+
+*/
+
 package com.wanliss.kurt.sewingmate;
 
 import android.content.Context;
@@ -17,12 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.wanliss.kurt.sewingmate.DTO.ClientContactDTO;
 
 public class ClientContact extends Fragment {
-    View mView;
+    private View mView;
     callOtherFragment mCallback;
 
-    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference mClientContactInfo = mDatabase.getReference("users/" + mUser.getUid());
+    private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final DatabaseReference mClientContactInfo = mDatabase.getReference("users/" + mUser.getUid());
     private ClientContactDTO mContact;
 
     @Override
@@ -41,16 +53,16 @@ public class ClientContact extends Fragment {
         super.onCreate(savedInstanceState);
         mView = inflater.inflate(R.layout.client_contact_frag, container, false);
 
-        Button maleBtn = (Button) mView.findViewById(R.id.male_button);
+        Button maleBtn = mView.findViewById(R.id.male_button);
         maleBtn.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         if (writeClientContact())
-                            mCallback.selectFragment("male", mContact );
+                            mCallback.selectFragment("male", mContact);
                     }
                 });
 
-        Button femaleBtn = (Button) mView.findViewById(R.id.female_button);
+        Button femaleBtn = mView.findViewById(R.id.female_button);
         femaleBtn.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
@@ -69,7 +81,7 @@ public class ClientContact extends Fragment {
         if (result) {
             mClientContactInfo.child("contacts/" + contact.getLastName()
                     + "_" + contact.getMiddleName()
-                    + "_" + contact.getFirstName() ).setValue(contact);
+                    + "_" + contact.getFirstName()).setValue(contact);
             Snackbar.make(mView, "Saving Contact", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
@@ -88,12 +100,12 @@ public class ClientContact extends Fragment {
 
     private ClientContactDTO readContact() {
 
-        EditText firstName = (EditText) mView.findViewById(R.id.first_name);
-        EditText lastName = (EditText) mView.findViewById(R.id.last_name);
-        EditText middleName = (EditText) mView.findViewById(R.id.middle_name);
-        EditText emailAddress = (EditText) mView.findViewById(R.id.email_address);
-        EditText phoneNumber = (EditText) mView.findViewById(R.id.phone_number);
-        EditText address = (EditText) mView.findViewById(R.id.address);
+        EditText firstName = mView.findViewById(R.id.first_name);
+        EditText lastName = mView.findViewById(R.id.last_name);
+        EditText middleName = mView.findViewById(R.id.middle_name);
+        EditText emailAddress = mView.findViewById(R.id.email_address);
+        EditText phoneNumber = mView.findViewById(R.id.phone_number);
+        EditText address = mView.findViewById(R.id.address);
 
         String fName = firstName.getText().toString();
         String lName = lastName.getText().toString();
@@ -115,6 +127,6 @@ public class ClientContact extends Fragment {
     }
 
     public interface callOtherFragment {
-        public void selectFragment(String otherFragment, ClientContactDTO contactInfo);
+        void selectFragment(String otherFragment, ClientContactDTO contactInfo);
     }
 }

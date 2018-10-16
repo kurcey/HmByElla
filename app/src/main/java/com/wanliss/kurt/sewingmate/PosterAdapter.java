@@ -1,20 +1,23 @@
-/* Copyright 2018 Kurt Wanliss
- *
- * All rights reserved under the copyright laws of the United States
- * and applicable international laws, treaties, and conventions.
- *
- * You may freely redistribute and use this sample code, with or
- * without modification, provided you include the original copyright
- * notice and use restrictions.
- *
- *
- */
+/*
+        Copyright 2018 Kurt Wanliss
+
+        All rights reserved under the copyright laws of the United States
+        and applicable international laws, treaties, and conventions.
+
+        You may freely redistribute and use this sample code, with or
+        without modification, provided you include the original copyright
+        notice and use restrictions.
+
+*/
+
 
 package com.wanliss.kurt.sewingmate;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +27,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.wanliss.kurt.sewingmate.DTO.StoreDisplayDTO;
 
@@ -40,30 +46,23 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberView
     private final List<StoreDisplayDTO> displayList;
     private final String mImageSize;
     private int mNumberItems;
+    private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
+    private final View mView;
 
     public PosterAdapter(List<StoreDisplayDTO> displayList, Context mainActivityContext) {
         mNumberItems = displayList.size();
         mOnClickListener = (ListItemClickListener) mainActivityContext; //listener;
         this.displayList = displayList;
         mImageSize = mainActivityContext.getString(R.string.imageSize);
+        mView = ((Activity) mainActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
     }
 
-
-    /**
-     * @param additionaldisplayList
-     */
     public void updatedisplayList(ArrayList<StoreDisplayDTO> additionaldisplayList) {
         this.displayList.addAll(additionaldisplayList);
         this.mNumberItems = displayList.size();
         Log.d(TAG, "adding additional Recycler views " + getItemCount());
     }
 
-
-    /*
-
-    @NonNull
-    @Override
-    */
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.poster_list_item;
@@ -77,7 +76,6 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberView
     public void onBindViewHolder(@NonNull NumberViewHolder holder, int position) {
         holder.bind(displayList.get(position));
     }
-
 
     @Override
     public int getItemCount() {
@@ -95,10 +93,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberView
         final TextView posterText;
         final Context thisContext;
 
-        /**
-         * @param itemView
-         */
-        public NumberViewHolder(View itemView) {
+        NumberViewHolder(View itemView) {
             super(itemView);
             thisContext = itemView.getContext();
             posterImage = itemView.findViewById(R.id.posterImage);
@@ -106,35 +101,36 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberView
             itemView.setOnClickListener(this);
         }
 
-        /**
-         * @param movie
-         */
+
         void bind(StoreDisplayDTO movie) {
-            URL imagePath = getUrlImage(movie.getThumbnail());
             posterText.setText(movie.getName());
-            Picasso.with(thisContext).load(imagePath.toString()).into(posterImage);
+
+            StorageReference dateRef = mStorage.getReference().child(movie.getThumbnail());
+            dateRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri downloadUrl) {
+                    Picasso.with(thisContext).load(downloadUrl).into(posterImage);
+                }
+            });
         }
 
-        /**
-         * @param v
-         */
+
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             StoreDisplayDTO movieInformation = displayList.get(clickedPosition);
             mOnClickListener.onListItemClick(movieInformation);
+
+            Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getName() ,
+                    Snackbar.LENGTH_SHORT)
+                    .show();
+
+                  /*  Class destinationActivity = DetailsView.class;
+        Intent startChildActivityIntent = new Intent(context, destinationActivity);
+        startChildActivityIntent.putExtra("clickedMovie", clickedMovie);
+        startActivity(startChildActivityIntent);
+        */
         }
 
-        private URL getUrlImage(String imageParam) {
-            Uri builtUri = Uri.parse(imageParam);
-
-            URL url = null;
-            try {
-                url = new URL(builtUri.toString());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            return url;
-        }
     }
 }

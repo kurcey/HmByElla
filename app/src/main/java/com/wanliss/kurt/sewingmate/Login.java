@@ -1,3 +1,15 @@
+/*
+        Copyright 2018 Kurt Wanliss
+
+        All rights reserved under the copyright laws of the United States
+        and applicable international laws, treaties, and conventions.
+
+        You may freely redistribute and use this sample code, with or
+        without modification, provided you include the original copyright
+        notice and use restrictions.
+
+*/
+
 package com.wanliss.kurt.sewingmate;
 
 import android.content.Intent;
@@ -11,6 +23,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
@@ -26,41 +39,44 @@ import java.util.List;
 public class Login extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
-    private FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private FirebaseUser mUser;
-    private DatabaseReference mAllContact ;
-    private Menu mSettingMenu;
+    private DatabaseReference mAllContact;
     private Menu mDrawerMenu;
-
+    private MenuItem mSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavDrawer(this));
         this.mDrawerMenu = navigationView.getMenu();
 
+        mSignIn = mDrawerMenu.findItem(R.id.nav_sign_in);
+        if (mUser != null)
+            mSignIn.setTitle("sign out " + mUser.getDisplayName());
+        else
+            mSignIn.setTitle("sign in");
 // ...
 
 // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                // new AuthUI.IdpConfig.EmailBuilder().build(),
-                // new AuthUI.IdpConfig.PhoneBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build() //,
-                // new AuthUI.IdpConfig.FacebookBuilder().build(),
-                // new AuthUI.IdpConfig.TwitterBuilder().build()
+                 new AuthUI.IdpConfig.EmailBuilder().build(),
+                 new AuthUI.IdpConfig.PhoneBuilder().build(),
+                 new AuthUI.IdpConfig.GoogleBuilder().build() ,
+                 new AuthUI.IdpConfig.FacebookBuilder().build(),
+                 new AuthUI.IdpConfig.TwitterBuilder().build()
         );
 
 // Create and launch sign-in intent
@@ -72,7 +88,7 @@ public class Login extends AppCompatActivity {
                 RC_SIGN_IN);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +126,7 @@ public class Login extends AppCompatActivity {
                     mUser = FirebaseAuth.getInstance().getCurrentUser();
                     mAllContact = mDatabase.getReference("profile/" + mUser.getDisplayName());
 
-                    mAllContact .setValue(mUser.getUid());
+                    mAllContact.setValue(mUser.getUid());
                     //mAllContact .child( mUser.getDisplayName()).setValue("uid",mUser.getUid());
                 }
             } else {
