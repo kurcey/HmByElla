@@ -19,7 +19,7 @@ Copyright 2018 Kurt Wanliss
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:foregroundGravity="fill"
-    tools:context="com.wanliss.kurt.sewingmate.ContactActivity">
+    tools:context="com.wanliss.kurt.hmByElla.ContactActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

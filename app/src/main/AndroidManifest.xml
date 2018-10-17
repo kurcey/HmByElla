@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wanliss.kurt.sewingmate">
+    package="com.wanliss.kurt.hmByElla">
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/hm_by_ella"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/hm_by_ella_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.wanliss.kurt.hmByElla.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,9 +20,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ContactActivity"
+            android:name="com.wanliss.kurt.hmByElla.ContactActivity"
             android:label="@string/client_info"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.wanliss.kurt.hmByElla.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -31,9 +31,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login"
+            android:name="com.wanliss.kurt.hmByElla.Login"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.wanliss.kurt.hmByElla.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".StorageActivity"
+            android:name="com.wanliss.kurt.hmByElla.StorageActivity"
             android:label="@string/title_activity_storage"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

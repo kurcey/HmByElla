@@ -26,7 +26,7 @@ Copyright 2018 Kurt Wanliss
         android:id="@+id/contact_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.wanliss.kurt.sewingmate.ContactActivity">
+        tools:context="com.wanliss.kurt.hmByElla.ContactActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"

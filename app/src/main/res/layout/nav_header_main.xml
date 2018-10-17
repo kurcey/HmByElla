@@ -30,7 +30,7 @@ Copyright 2018 Kurt Wanliss
         android:layout_height="74dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/ic_sisor" />
+        app:srcCompat="@mipmap/hm_by_ella_round" />
 
     <TextView
         android:layout_width="match_parent"

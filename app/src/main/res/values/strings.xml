@@ -9,9 +9,9 @@
     <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
 
 
-    <string name="app_name">Sewing Mate</string>
-    <string name="nav_header_title">Sewing Mate</string>
-    <string name="nav_header_subtitle">kurt.wanliss@gmail.com</string>
+    <string name="app_name">Hand Made by Ella</string>
+    <string name="nav_header_title">Hand Made by Ella</string>
+    <string name="nav_header_subtitle">elmita.wanliss@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
