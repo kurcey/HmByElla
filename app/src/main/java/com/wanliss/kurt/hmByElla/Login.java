@@ -111,12 +111,12 @@ public class Login extends AppCompatActivity {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-                    // Name, email address, and profile photo Url
+                    // Name, EmailElla address, and profile photo Url
                     String name = user.getDisplayName();
                     String email = user.getEmail();
                     Uri photoUrl = user.getPhotoUrl();
 
-                    // Check if user's email is verified
+                    // Check if user's EmailElla is verified
                     boolean emailVerified = user.isEmailVerified();
 
                     // The user's ID, unique to the Firebase project. Do NOT use this value to

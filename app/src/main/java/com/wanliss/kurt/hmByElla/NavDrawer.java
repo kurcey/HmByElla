@@ -70,9 +70,15 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_share) {
-
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Try the Hand Made by Ella App in the google app store");
+            sendIntent.setType("text/plain");
+            this.mActivity.startActivity(sendIntent);
         } else if (id == R.id.nav_send) {
-
+            Intent intent = new Intent(this.mActivity, EmailElla.class);
+            this.mActivity.startActivity(intent);
+            return true;
         }
 
         DrawerLayout drawer = this.mActivity.findViewById(R.id.drawer_layout);

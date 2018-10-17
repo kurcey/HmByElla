@@ -8,9 +8,9 @@
     <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
 
 
-    <string name="app_name">Hand Made by Ella</string>
-    <string name="nav_header_title">Hand Made by Ella</string>
-    <string name="nav_header_subtitle">elmita.wanliss@gmail.com</string>
+    <string name="app_name">HandMade by Ella</string>
+    <string name="nav_header_title">HandMade by Ella</string>
+    <string name="nav_email">sweetella1978@yahoo.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -85,7 +85,8 @@
     <string name="waist_floor">Waist to floor</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_storage">StorageActivity</string>
+    <string name="title_activity_storage">Storage Activity</string>
+    <string name="title_activity_group_images">Storage Activity</string>
 
     <string name="error_message">There was an error getting the data. Please check your internet
         connection and try again.</string>
@@ -108,5 +109,7 @@
     <string name="notes">Notes :</string>
     <string name="button_choose">Choose Image</string>
     <string name="button_upload">Upload</string>
+
+    <string name="compose_email">Compose Email</string>
 
 </resources>

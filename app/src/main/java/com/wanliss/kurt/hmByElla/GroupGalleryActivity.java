@@ -13,7 +13,6 @@
 package com.wanliss.kurt.hmByElla;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -42,26 +41,36 @@ import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements PosterAdapter.ListItemClickListener {
+public class GroupGalleryActivity extends AppCompatActivity
+        implements GalleryAdapter.ListItemClickListener {
     private Menu mDrawerMenu;
     private MenuItem mSignIn;
 
     private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
 
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private final DatabaseReference mStoreDisplayInfo = mDatabase.getReference("images/Gallery");
+    private  DatabaseReference mStoreDisplayInfo = null;
     private final List<StoreDisplayDTO> mAllStore = new ArrayList<>();
 
     private RecyclerView mStoreRecyclerView;
-    private PosterAdapter mStoreRecyclerViewAdapter;
+    private GalleryAdapter mStoreRecyclerViewAdapter;
 
     private TextView mErrorMessageDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+        StoreDisplayDTO clickedImage;
+
+        if (extras != null) {
+            clickedImage = (StoreDisplayDTO) extras.getSerializable("clickedImage");
+            System.out.println(clickedImage.getName());
+            System.out.println(clickedImage);
+            mStoreDisplayInfo = mDatabase.getReference("images/GroupImages/"+clickedImage.getName());
+        }
+        setContentView(R.layout.activity_goup_gallery);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,7 +92,7 @@ public class MainActivity extends AppCompatActivity
 
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
-        mStoreRecyclerView = findViewById(R.id.rv_posters);
+        mStoreRecyclerView = findViewById(R.id.group_display);
         mStoreRecyclerView.setHasFixedSize(true);
         mStoreRecyclerView.setLayoutManager(layoutManager);
 
@@ -94,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                     StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
                     mAllStore.add(store);
                 }
-                mStoreRecyclerViewAdapter = new PosterAdapter(mAllStore, MainActivity.this);
+                mStoreRecyclerViewAdapter = new GalleryAdapter(mAllStore, GroupGalleryActivity.this);
                 mStoreRecyclerView.setAdapter(mStoreRecyclerViewAdapter);
                 //progressDialog.dismiss();
             }
@@ -128,20 +137,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListItemClick(StoreDisplayDTO clickedImage) {
-        System.out.println(" Hi Kurt ");
-        System.out.println(clickedImage);
-        Context context = MainActivity.this;
-        Class destinationActivity = GroupGalleryActivity.class;
-        //Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        //startChildActivityIntent.putExtra("clickedImage", clickedImage);
-        //startActivity(startChildActivityIntent);
-
+    public void onListItemClick(StoreDisplayDTO clickedMovie) {
+        Context context = GroupGalleryActivity.this;
+      /*  Class destinationActivity = DetailsView.class;
         Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("clickedImage", clickedImage);
-        startChildActivityIntent.putExtras(bundle);
+        startChildActivityIntent.putExtra("clickedMovie", clickedMovie);
         startActivity(startChildActivityIntent);
+        */
     }
 
     private void showErrorMessage() {
