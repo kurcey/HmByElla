@@ -49,9 +49,9 @@ Copyright 2018 Kurt Wanliss
             android:gravity="center_horizontal"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Wow"
+            android:text="@string/blank_text"
             android:textColor="#ffffff"
-            android:textSize="13sp" />
+            android:textSize="13sp"/>
 
     </RelativeLayout>
 

@@ -37,9 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberViewHolder> {
+public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberViewHolder> {
 
-    private static final String TAG = PosterAdapter.class.getSimpleName();
+    private static final String TAG = ImagesAdapter.class.getSimpleName();
     final private ListItemClickListener mOnClickListener;
     private final List<StoreDisplayDTO> displayList;
     private final String mImageSize;
@@ -47,12 +47,12 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberView
     private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
     private final View mView;
 
-    public PosterAdapter(List<StoreDisplayDTO> displayList, Context mainActivityContext) {
+    public ImagesAdapter(List<StoreDisplayDTO> displayList, Context galleryActivityContext) {
         mNumberItems = displayList.size();
-        mOnClickListener = (ListItemClickListener) mainActivityContext; //listener;
+        mOnClickListener = (ListItemClickListener) galleryActivityContext; //listener;
         this.displayList = displayList;
-        mImageSize = mainActivityContext.getString(R.string.imageSize);
-        mView = ((Activity) mainActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
+        mImageSize = galleryActivityContext.getString(R.string.imageSize);
+        mView = ((Activity) galleryActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
     }
 
     public void updatedisplayList(ArrayList<StoreDisplayDTO> additionaldisplayList) {
@@ -63,7 +63,7 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberView
 
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.poster_list_item;
+        int layoutIdForListItem = R.layout.gallery_row;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
         NumberViewHolder viewHolder = new NumberViewHolder(view);
@@ -87,27 +87,27 @@ public class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.NumberView
     class NumberViewHolder extends RecyclerView.ViewHolder
             implements OnClickListener {
 
-        final ImageView posterImage;
-        final TextView posterText;
+        final ImageView galleryImage;
+        final TextView galleryText;
         final Context thisContext;
 
         NumberViewHolder(View itemView) {
             super(itemView);
             thisContext = itemView.getContext();
-            posterImage = itemView.findViewById(R.id.posterImage);
-            posterText = itemView.findViewById(R.id.psTextFrame);
+            galleryImage = itemView.findViewById(R.id.galleryImage);
+            galleryText = itemView.findViewById(R.id.psTextFrame);
             itemView.setOnClickListener(this);
         }
 
 
         void bind(StoreDisplayDTO movie) {
-            posterText.setText(movie.getName());
+            galleryText.setText(movie.getName());
 
             StorageReference dateRef = mStorage.getReference().child(movie.getThumbnail());
             dateRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri downloadUrl) {
-                    Picasso.with(thisContext).load(downloadUrl).into(posterImage);
+                    Picasso.with(thisContext).load(downloadUrl).into(galleryImage);
                 }
             });
         }

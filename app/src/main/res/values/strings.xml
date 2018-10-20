@@ -1,22 +1,31 @@
 <resources>
     <!-- App variables.-->
+
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+
     <!-- Twitter consumer key and secret -->
     <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
     <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
 
-
+    <!-- Navigation Drawer and menu Varables -->
     <string name="app_name">HandMade by Ella</string>
     <string name="nav_header_title">HandMade by Ella</string>
     <string name="nav_email">sweetella1978@yahoo.com</string>
     <string name="nav_header_desc">Navigation header</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="email_ella">Email Ella</string>
+    <string name="share_app">Share App</string>
+    <string name="sign_in">Sign in</string>
+    <string name="gallery">Gallery</string>
+    <string name="manage_images">Manage Images</string>
+    <string name="about_us">About Ella</string>
+    <string name="communicate">Communicate</string>
+    <string name="settings">Settings</string>
+    <string name="login">Login</string>
 
-    <string name="action_settings">Settings</string>
 
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_male_measurement">MaleMeasurementActivity</string>
@@ -24,7 +33,7 @@
     <string name="title_activity_login">Login</string>
 
     <!-- client contact fragment variables. -->
-    <string name="contact">clients</string>
+    <string name="contact">Clients</string>
     <string name="client_fragment">client_fragment</string>
     <string name="client_first_name">First Name</string>
     <string name="client_middle_name">Middle Name</string>
@@ -53,7 +62,6 @@
 
     <!-- female measurement fragment variables. -->
     <string name="female_fragment">female_fragment</string>
-
     <string name="neck">Neck - Taken around neck</string>
     <string name="front_width">Front Width - Taken across from arm crease to arm crease</string>
     <string name="high_bust">High Bust - Taken around the body above the bust and high under the arms</string>
@@ -85,6 +93,7 @@
     <string name="waist_floor">Waist to floor</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="blank_text"></string>
     <string name="title_activity_storage">Storage Activity</string>
     <string name="title_activity_group_images">Storage Activity</string>
 
@@ -94,7 +103,6 @@
     <string name="imageSize">w500</string>
 
     <string name="uploadedImageTitle">Image Title</string>
-
 
     <string name="hint_image_title">Enter image title</string>
     <string name="hint_date">Enter date photo taken</string>
@@ -110,6 +118,12 @@
     <string name="button_choose">Choose Image</string>
     <string name="button_upload">Upload</string>
 
-    <string name="compose_email">Compose Email</string>
+    <string name="lorem_ipsum1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet lorem in pharetra molestie. Nunc euismod elit libero, ut bibendum nunc scelerisque et. Phasellus rutrum nisl eu sem hendrerit, efficitur tincidunt elit facilisis. Curabitur eget erat nec dolor consectetur faucibus sit amet eu tortor. Donec pharetra nisi sit amet lacus malesuada mollis. Fusce porta eget ante nec pulvinar. Sed et nulla ac risus euismod mattis a gravida libero. Suspendisse fermentum ornare purus non sollicitudin. Morbi suscipit eros massa, in commodo velit convallis at. Etiam posuere risus nec efficitur sodales. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin maximus non nunc a interdum. Cras hendrerit sit amet odio malesuada malesuada. Mauris volutpat lectus nulla, a lobortis purus eleifend vitae. Aliquam erat volutpat. </string>
+    <string name="lorem_ipsum2">Aliquam nec eros id est posuere lacinia ornare a odio. Duis neque mauris, scelerisque vitae finibus sed, dapibus ac risus. Phasellus ut eros in odio tempor accumsan id a quam. Duis non tincidunt enim, in vehicula nisl. Vestibulum ultrices pulvinar arcu at accumsan. Nullam tincidunt ligula velit, id faucibus augue eleifend non. Phasellus finibus accumsan lacus vitae dapibus. Suspendisse ut ipsum in purus porttitor commodo. Quisque vitae sodales eros, eget euismod magna. Morbi rhoncus urna sed gravida aliquet. Aenean venenatis viverra sem, malesuada interdum odio volutpat id. Nulla tristique dui enim, quis aliquam leo porttitor at. </string>
+    <string name="lorem_ipsum3">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum sed mauris tortor. Nunc congue blandit lacus, quis pretium nunc. Integer tempus arcu eget metus luctus finibus. Cras non semper nulla, non faucibus nisi. Vestibulum dignissim felis nulla, non malesuada ex aliquet quis. In hac habitasse platea dictumst. Phasellus vestibulum nibh luctus, consequat metus id, pellentesque magna. Donec lorem justo, pharetra at mauris non, posuere maximus nibh. Vestibulum ac ipsum non felis porta volutpat vel sed dui. Quisque viverra consequat neque ut varius. Donec sed ipsum est. Sed tincidunt leo eget nisl lacinia, quis suscipit justo venenatis. Integer ultricies purus neque, quis sagittis erat fermentum ut. Vivamus nec risus neque. Cras sagittis at dolor vel aliquam. </string>
+    <string name="lorem_ipsum4">Sed fermentum lectus eget sapien ullamcorper egestas. Donec pretium eleifend velit. Proin ut ultricies dolor. Ut tempor, felis a accumsan maximus, justo mauris lacinia lorem, ac commodo eros metus non tellus. Fusce rutrum scelerisque mauris, quis finibus tellus. Sed eu ante congue, vulputate ex sed, ornare neque. Praesent id leo nibh. Sed sollicitudin rhoncus odio sit amet consequat. Phasellus faucibus tincidunt nisi, non condimentum tortor sagittis eget. Cras a gravida mauris, sed gravida lorem. In dapibus eros ligula, sed vulputate sem imperdiet sed. Nam pellentesque semper felis eget dignissim. Nulla cursus nec nisl quis consectetur.</string>
+    <string name="lorem_ipsum5">Integer ultrices neque tincidunt ultrices placerat. Vestibulum congue ut velit at feugiat. Vestibulum dignissim ultrices sollicitudin. Fusce accumsan ligula id faucibus tristique. Integer pharetra sit amet eros vel maximus. Nunc suscipit turpis sed tortor convallis fermentum vitae a orci. Suspendisse faucibus dictum est, non commodo nulla bibendum in. Quisque lorem mauris, posuere eget nisl a, consectetur consequat arcu. Vestibulum finibus metus id diam lobortis, sit amet lobortis nisi tempor. Fusce faucibus nisl nec leo placerat, ut facilisis quam elementum. Nunc sit amet commodo urna. In gravida tellus et nunc bibendum, eget venenatis ex lacinia. </string>
+
+
 
 </resources>

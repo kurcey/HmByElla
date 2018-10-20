@@ -10,60 +10,49 @@
 
 */
 
-
 package com.wanliss.kurt.hmByElla;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
+import com.wanliss.kurt.hmByElla.DTO.ClientContactDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberViewHolder> {
-
+class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolder> {
     private static final String TAG = GalleryAdapter.class.getSimpleName();
-    final private ListItemClickListener mOnClickListener;
-    private final List<StoreDisplayDTO> displayList;
-    private final String mImageSize;
-    private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
+    public final List<ClientContactDTO> clients;
+    protected final Context context;
+    final private ContactAdapter.ListItemClickListener mOnClickListener;
     private final View mView;
     private int mNumberItems;
 
-    public GalleryAdapter(List<StoreDisplayDTO> displayList, Context mainActivityContext) {
-        mNumberItems = displayList.size();
-        mOnClickListener = (ListItemClickListener) mainActivityContext; //listener;
-        this.displayList = displayList;
-        mImageSize = mainActivityContext.getString(R.string.imageSize);
-        mView = ((Activity) mainActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
+    public ContactAdapter(Context context, List<ClientContactDTO> clients) {
+        this.clients = clients;
+        this.context = context;
+        mNumberItems = clients.size();
+        mOnClickListener = (ListItemClickListener) context; //listener;
+        mView = ((Activity) context).getWindow().getDecorView().findViewById(R.id.drawer_layout);
     }
 
-    public void updatedisplayList(ArrayList<StoreDisplayDTO> additionaldisplayList) {
-        this.displayList.addAll(additionaldisplayList);
-        this.mNumberItems = displayList.size();
+    public void updatedisplayList(ArrayList<ClientContactDTO> additionaldisplayList) {
+        this.clients.addAll(additionaldisplayList);
+        this.mNumberItems = clients.size();
         Log.d(TAG, "adding additional Recycler views " + getItemCount());
     }
 
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.image_row;
+        int layoutIdForListItem = R.layout.contact_row;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
         NumberViewHolder viewHolder = new NumberViewHolder(view);
@@ -72,7 +61,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberVi
 
     @Override
     public void onBindViewHolder(@NonNull NumberViewHolder holder, int position) {
-        holder.bind(displayList.get(position));
+        holder.bind(clients.get(position));
     }
 
     @Override
@@ -81,44 +70,39 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberVi
     }
 
     public interface ListItemClickListener {
-        void onListItemClick(StoreDisplayDTO clickedMovie);
+        void onListItemClick(ClientContactDTO clickedMovie);
     }
 
     class NumberViewHolder extends RecyclerView.ViewHolder
-            implements OnClickListener {
-        final Context thisContext;
-        final ImageView posterImage;
-        final TextView posterText;
+            implements View.OnClickListener {
 
+        final Context thisContext;
+        final TextView firstName;
+        final TextView lastName;
 
         NumberViewHolder(View itemView) {
             super(itemView);
             thisContext = itemView.getContext();
-            posterImage = itemView.findViewById(R.id.posterImage);
-            posterText = itemView.findViewById(R.id.psTextFrame);
+            firstName = itemView.findViewById(R.id.first_name);
+            lastName = itemView.findViewById(R.id.last_name);
             itemView.setOnClickListener(this);
         }
 
 
-        void bind(StoreDisplayDTO movie) {
-            StorageReference dateRef = mStorage.getReference().child(movie.getThumbnail());
-            dateRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri downloadUrl) {
-                    Picasso.with(thisContext).load(downloadUrl).into(posterImage);
-                }
-            });
-            posterText.setText(movie.getName());
+        void bind(ClientContactDTO movie) {
+            // System.out.println(movie.getFirstName());
+            firstName.setText(movie.getFirstName());
+            lastName.setText(movie.getLastName());
         }
 
 
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
-            StoreDisplayDTO movieInformation = displayList.get(clickedPosition);
+            ClientContactDTO movieInformation = clients.get(clickedPosition);
             mOnClickListener.onListItemClick(movieInformation);
 
-            Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getName(),
+            Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getFirstName(),
                     Snackbar.LENGTH_SHORT)
                     .show();
 

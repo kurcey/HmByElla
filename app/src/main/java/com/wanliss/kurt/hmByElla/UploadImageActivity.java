@@ -21,14 +21,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -57,7 +52,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class StorageActivity extends AppCompatActivity {
+public class UploadImageActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 234;
     private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
     private EditText mPicDate;
@@ -77,86 +72,76 @@ public class StorageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_storage);
 
-        Menu drawerMenu;
-        MenuItem signIn;
-        Button buttonChoose;
-        Button buttonUpload;
+        if (GlobalLogin.isAdmin() == GlobalLogin.dataSet.SET_TRUE) {
+            setContentView(R.layout.storage_activity);
 
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+            Button buttonChoose;
+            Button buttonUpload;
 
-        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            final Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavDrawer(this));
-        drawerMenu = navigationView.getMenu();
+            GlobalLogin.initilize_drawer(this);
 
-        signIn = drawerMenu.findItem(R.id.nav_sign_in);
-        if (mUser != null)
-            signIn.setTitle("sign out " + mUser.getDisplayName());
-        else
-            signIn.setTitle("sign in");
+            FloatingActionButton fab = findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+            SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+            String todayDate = dateF.format(Calendar.getInstance().getTime());
 
-        SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
-        String todayDate = dateF.format(Calendar.getInstance().getTime());
+            mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+            buttonChoose = this.findViewById(R.id.buttonChoose);
+            buttonUpload = this.findViewById(R.id.buttonUpload);
+            mGroup = findViewById(R.id.group_switch);
+            mImageView = this.findViewById(R.id.imageView);
+            mPicDate = this.findViewById(R.id.pic_date);
+            mPicDate.setText(todayDate);
+            mOrderLabel = this.findViewById(R.id.group_order_label);
+            mImageTitle = this.findViewById(R.id.imageTitle);
+            mOrderText = this.findViewById(R.id.order_text);
+            mNameLabel = this.findViewById(R.id.group_name_label);
+            mName = this.findViewById(R.id.group_name);
+            mNotesLabel = this.findViewById(R.id.notes_label);
+            mNotes = this.findViewById(R.id.notes);
 
-        buttonChoose = this.findViewById(R.id.buttonChoose);
-        buttonUpload = this.findViewById(R.id.buttonUpload);
-        mGroup = findViewById(R.id.group_switch);
-        mImageView = this.findViewById(R.id.imageView);
-        mPicDate = this.findViewById(R.id.pic_date);
-        mPicDate.setText(todayDate);
-        mOrderLabel = this.findViewById(R.id.group_order_label);
-        mImageTitle = this.findViewById(R.id.imageTitle);
-        mOrderText = this.findViewById(R.id.order_text);
-        mNameLabel = this.findViewById(R.id.group_name_label);
-        mName = this.findViewById(R.id.group_name);
-        mNotesLabel = this.findViewById(R.id.notes_label);
-        mNotes = this.findViewById(R.id.notes);
+            buttonChoose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showFileChooser();
+                }
+            });
 
-        buttonChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFileChooser();
-            }
-        });
+            buttonUpload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    uploadFile();
+                }
+            });
 
-        buttonUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadFile();
-            }
-        });
+            mGroup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    toggleGroupSwitch(isChecked);
+                }
+            });
 
-        mGroup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                toggleGroupSwitch(isChecked);
-            }
-        });
-
-        mPicDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
+            mPicDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDatePicker();
+                }
+            });
+        } else {
+            Intent intent = new Intent(this, GalleryActivity.class);
+            this.startActivity(intent);
+        }
     }
 
     @Override
@@ -207,9 +192,9 @@ public class StorageActivity extends AppCompatActivity {
                 extension = mFilePath.getPath().substring(i + 1);
             }
             String fileLocation = "";
-System.out.println("Kurt this is " + mName.getText().toString()  );
+            System.out.println("Kurt this is " + mName.getText().toString());
             if (group.equals("true") && !mOrderText.getText().toString().equals("1")) {
-                fileLocation = "GroupImages/" + mName.getText().toString() + "/"+ mImageTitle.getText().toString();
+                fileLocation = "GroupImages/" + mName.getText().toString() + "/" + mImageTitle.getText().toString();
             } else if (group.equals("true") && mOrderText.getText().toString().equals("1")) {
                 fileLocation = "Gallery/" + mName.getText().toString();
             } else
@@ -274,7 +259,7 @@ System.out.println("Kurt this is " + mName.getText().toString()  );
 
         };
 
-        new DatePickerDialog(StorageActivity.this, date, mDatePicker
+        new DatePickerDialog(UploadImageActivity.this, date, mDatePicker
                 .get(Calendar.YEAR), mDatePicker.get(Calendar.MONTH),
                 mDatePicker.get(Calendar.DAY_OF_MONTH)).show();
     }

@@ -23,10 +23,9 @@ Copyright 2018 Kurt Wanliss
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/contact_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.wanliss.kurt.hmByElla.ContactActivity">
+        tools:context=".Login">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -42,21 +41,15 @@ Copyright 2018 Kurt Wanliss
 
         </android.support.design.widget.AppBarLayout>
 
-
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackground"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".Login"
+            tools:showIn="@layout/login_activity">
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/contact_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.design.widget.FloatingActionButton
@@ -67,7 +60,6 @@ Copyright 2018 Kurt Wanliss
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@android:drawable/ic_dialog_email" />
 
-
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
@@ -76,7 +68,7 @@ Copyright 2018 Kurt Wanliss
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer" />
 
 </android.support.v4.widget.DrawerLayout>

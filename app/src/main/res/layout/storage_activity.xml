@@ -23,7 +23,7 @@ Copyright 2018 Kurt Wanliss
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".StorageActivity">
+        tools:context=".UploadImageActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -248,7 +248,7 @@ Copyright 2018 Kurt Wanliss
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer" />
 
 </android.support.v4.widget.DrawerLayout>

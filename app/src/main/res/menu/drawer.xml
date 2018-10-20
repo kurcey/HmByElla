@@ -13,50 +13,52 @@ Copyright 2018 Kurt Wanliss
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    android:id="@+id/nav_drawer"
+    >
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/contact"
-            android:icon="@android:drawable/ic_menu_call"
-            android:title="@string/contact" />
-        <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_storage"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Storage" />
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:title="@string/gallery" />
         <item
             android:id="@+id/nav_about_us"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="About Us" />
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="@string/about_us" />
     </group>
 
-    <item android:title="Communicate">
+    <group android:checkableBehavior="single"
+        android:id="@+id/admin">
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="@string/contact" />
+        <item
+            android:id="@+id/nav_storage"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/manage_images" />
+    </group>
+
+    <item android:title="@string/communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/share_app" />
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:icon="@drawable/ic_mail_black_24dp"
+                android:title="@string/email_ella" />
         </menu>
     </item>
 
-    <item android:title="Personlize">
+    <item android:title="@string/login">
         <menu>
             <item
                 android:id="@+id/nav_sign_in"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Sign In" />
+                android:icon="@drawable/ic_account_circle_black_24dp"
+                android:title="@string/sign_in" />
 
         </menu>
     </item>

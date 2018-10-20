@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.wanliss.kurt.hmByElla.MainActivity"
+            android:name="com.wanliss.kurt.hmByElla.GalleryActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,7 +22,7 @@
         <activity
             android:name="com.wanliss.kurt.hmByElla.ContactActivity"
             android:label="@string/client_info"
-            android:parentActivityName="com.wanliss.kurt.hmByElla.MainActivity"
+            android:parentActivityName="com.wanliss.kurt.hmByElla.GalleryActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -33,16 +33,19 @@
         <activity
             android:name="com.wanliss.kurt.hmByElla.Login"
             android:label="@string/title_activity_login"
-            android:parentActivityName="com.wanliss.kurt.hmByElla.MainActivity"
+            android:parentActivityName="com.wanliss.kurt.hmByElla.GalleryActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
         </activity>
         <activity
-            android:name="com.wanliss.kurt.hmByElla.StorageActivity"
+            android:name="com.wanliss.kurt.hmByElla.UploadImageActivity"
             android:label="@string/title_activity_storage"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -52,8 +55,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wanliss.kurt.hmByElla.GroupGalleryActivity"
-            android:label="@string/title_activity_group_images"
+            android:name="com.wanliss.kurt.hmByElla.ImagesActivity"
+            android:label="@string/gallery"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -62,14 +65,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EmailElla"
-            android:label="@string/app_name" >
-
+            android:name="com.wanliss.kurt.hmByElla.AboutUsActivity"
+            android:label="@string/about_us"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.wanliss.kurt.hmByElla.GlobalLogin"
+            android:label="@string/about_us"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

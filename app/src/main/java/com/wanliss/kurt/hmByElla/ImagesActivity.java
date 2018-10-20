@@ -13,14 +13,11 @@
 package com.wanliss.kurt.hmByElla;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -42,48 +39,39 @@ import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements PosterAdapter.ListItemClickListener {
+public class ImagesActivity extends AppCompatActivity
+        implements ImagesAdapter.ListItemClickListener {
+    private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private final List<StoreDisplayDTO> mAllStore = new ArrayList<>();
     private Menu mDrawerMenu;
     private MenuItem mSignIn;
-
-    private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-
-    private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private final DatabaseReference mStoreDisplayInfo = mDatabase.getReference("images/Gallery");
-    private final List<StoreDisplayDTO> mAllStore = new ArrayList<>();
-
+    private DatabaseReference mStoreDisplayInfo = null;
     private RecyclerView mStoreRecyclerView;
-    private PosterAdapter mStoreRecyclerViewAdapter;
+    private ImagesAdapter mStoreRecyclerViewAdapter;
 
     private TextView mErrorMessageDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        Bundle extras = getIntent().getExtras();
+        StoreDisplayDTO clickedImage;
+
+        if (extras != null) {
+            clickedImage = (StoreDisplayDTO) extras.getSerializable("clickedImage");
+            this.setTitle(clickedImage.getName());
+            mStoreDisplayInfo = mDatabase.getReference("images/GroupImages/" + clickedImage.getName());
+        }
+        setContentView(R.layout.image_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavDrawer(this));
-        this.mDrawerMenu = navigationView.getMenu();
-
-        mSignIn = mDrawerMenu.findItem(R.id.nav_sign_in);
-        if (mUser != null)
-            mSignIn.setTitle("sign out " + mUser.getDisplayName());
-        else
-            mSignIn.setTitle("sign in");
-
+        GlobalLogin.initilize_drawer(this);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
-        mStoreRecyclerView = findViewById(R.id.rv_posters);
+        mStoreRecyclerView = findViewById(R.id.group_display);
         mStoreRecyclerView.setHasFixedSize(true);
         mStoreRecyclerView.setLayoutManager(layoutManager);
 
@@ -94,7 +82,7 @@ public class MainActivity extends AppCompatActivity
                     StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
                     mAllStore.add(store);
                 }
-                mStoreRecyclerViewAdapter = new PosterAdapter(mAllStore, MainActivity.this);
+                mStoreRecyclerViewAdapter = new ImagesAdapter(mAllStore, ImagesActivity.this);
                 mStoreRecyclerView.setAdapter(mStoreRecyclerViewAdapter);
                 //progressDialog.dismiss();
             }
@@ -128,20 +116,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListItemClick(StoreDisplayDTO clickedImage) {
-        System.out.println(" Hi Kurt ");
-        System.out.println(clickedImage);
-        Context context = MainActivity.this;
-        Class destinationActivity = GroupGalleryActivity.class;
-        //Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        //startChildActivityIntent.putExtra("clickedImage", clickedImage);
-        //startActivity(startChildActivityIntent);
-
+    public void onListItemClick(StoreDisplayDTO clickedMovie) {
+        Context context = ImagesActivity.this;
+      /*  Class destinationActivity = DetailsView.class;
         Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("clickedImage", clickedImage);
-        startChildActivityIntent.putExtras(bundle);
+        startChildActivityIntent.putExtra("clickedMovie", clickedMovie);
         startActivity(startChildActivityIntent);
+        */
     }
 
     private void showErrorMessage() {

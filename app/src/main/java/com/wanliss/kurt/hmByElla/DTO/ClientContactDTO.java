@@ -51,7 +51,6 @@ public class ClientContactDTO implements Serializable {
         this.lastName = lastName;
     }
 
-
     public String getMiddleName() {
         return middleName;
     }

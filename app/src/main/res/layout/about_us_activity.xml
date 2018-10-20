@@ -20,13 +20,11 @@ Copyright 2018 Kurt Wanliss
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.wanliss.kurt.hmByElla.MainActivity">
+        tools:context="com.wanliss.kurt.hmByElla.GalleryActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -35,11 +33,12 @@ Copyright 2018 Kurt Wanliss
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/cptoolLay"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleTextAppearance="@android:color/transparent"
+                app:expandedTitleTextAppearance="@style/TextAppearance"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
@@ -58,57 +57,67 @@ Copyright 2018 Kurt Wanliss
                     android:gravity="top"
                     android:minHeight="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackground"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context="com.wanliss.kurt.hmByElla.MainActivity">
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello World!"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_error_message_display"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/error_margin"
-                android:text="@string/error_message"
-                android:textSize="@dimen/error_text_size"
-                android:visibility="invisible" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_posters"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                android:background="@color/colorBackground"
+                android:orientation="vertical">
 
-        </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nixie_one"
+                    android:padding="@dimen/error_margin"
+                    android:text="@string/lorem_ipsum1"
+                    android:textColor="#25383C"
+                    android:textSize="@dimen/error_text_size" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nixie_one"
+                    android:padding="@dimen/error_margin"
+                    android:text="@string/lorem_ipsum2"
+                    android:textSize="@dimen/error_text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nixie_one"
+                    android:padding="@dimen/error_margin"
+                    android:text="@string/lorem_ipsum3"
+                    android:textSize="@dimen/error_text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nixie_one"
+                    android:padding="@dimen/error_margin"
+                    android:text="@string/lorem_ipsum4"
+                    android:textSize="@dimen/error_text_size" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nixie_one"
+                    android:padding="@dimen/error_margin"
+                    android:text="@string/lorem_ipsum5"
+                    android:textSize="@dimen/error_text_size" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -118,7 +127,9 @@ Copyright 2018 Kurt Wanliss
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer" />
 
 </android.support.v4.widget.DrawerLayout>
+
+
