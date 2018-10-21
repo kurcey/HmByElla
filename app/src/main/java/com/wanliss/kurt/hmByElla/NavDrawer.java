@@ -98,7 +98,7 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
                 break;
 
             case R.id.nav_sign_in:
-                if (item.getTitle().equals("sign in")) {
+                if (GlobalLogin.isAdmin()==GlobalLogin.dataSet.NOT_SET) {
                     intent = new Intent(this.mActivity, Login.class);
                     this.mActivity.startActivity(intent);
                 } else signOut(item);
@@ -117,6 +117,7 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
     }
 
     private void signOut(MenuItem item) {
+        GlobalLogin.setAdmin(GlobalLogin.dataSet.NOT_SET);
         item.setTitle("sign in");
         nav_Menu.findItem(R.id.nav_storage).setVisible(false);
         nav_Menu.findItem(R.id.contact).setVisible(false);
@@ -124,12 +125,10 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
                 .signOut(this.mContext)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {
-                        // ...
+                        Intent intent = new Intent(mActivity, GalleryActivity.class);
+                        mActivity.startActivity(intent);
                     }
                 });
-
-        Intent intent = new Intent(this.mActivity, GalleryActivity.class);
-        this.mActivity.startActivity(intent);
     }
 
     private void sendEmail() {

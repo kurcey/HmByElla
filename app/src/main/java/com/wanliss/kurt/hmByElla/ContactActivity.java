@@ -17,8 +17,6 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,21 +36,13 @@ import com.wanliss.kurt.hmByElla.DTO.ClientContactDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactActivity extends AppCompatActivity implements ContactAdapter.ListItemClickListener
-//        ClientContact.callOtherFragment
+public class ContactActivity extends AppCompatActivity implements ContactAdapter.ListItemClickListener, GlobalLogin.LoginListener
+//        AddClientContactActivity.callOtherFragment
 {
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
     private final DatabaseReference mClientContactInfo = mDatabase.getReference("users/GlJk1ty08Bgtvdbtk6Akyytka983/contacts");
-    SwipeController swipeController = null;
-    private ClientContact mClientContactFragment;
-    private ClientFMeasure mClientFMeasureFragment;
-    private ClientMMeasure mClientMMeasureFragment;
-    private FragmentManager mTransaction;
-    private String mClientFragment;
-    private String mFemaleFragment;
-    private String mMaleFragment;
-    private ClientContactDTO mContact;
+    private SwipeController swipeController = null;
     private RecyclerView mContactRecyclerView;
     private ContactAdapter mContactRecyclerViewAdapter;
     private List<ClientContactDTO> mAllClients;
@@ -61,21 +51,42 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (GlobalLogin.isAdmin() == GlobalLogin.dataSet.SET_TRUE) {
-            setContentView(R.layout.contact_activity);
-            // setTheme(R.style.AppTheme);
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        setContentView(R.layout.contact_activity);
+        // setTheme(R.style.AppTheme);
 
-            GlobalLogin.initilize_drawer(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        GlobalLogin.initialize_drawer(this);
+
+
+    }
+
+    @Override
+    public void onListItemClick(ClientContactDTO clickedMovie) {
+        Context context = ContactActivity.this;
+        /*
+        Class destinationActivity = ImagesActivity.class;
+
+        Intent startChildActivityIntent = new Intent(context, destinationActivity);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("clickedImage", clickedImage);
+        startChildActivityIntent.putExtras(bundle);
+        startActivity(startChildActivityIntent);
+        */
+    }
+
+
+    @Override
+    public void onCheckedLogIn(GlobalLogin.dataSet admin) {
+        if (admin == GlobalLogin.dataSet.SET_TRUE) {
             FloatingActionButton fab = findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Intent intent = new Intent(ContactActivity.this, AddClientContactActivity.class);
+                    ContactActivity.this.startActivity(intent);
                 }
             });
 
@@ -127,103 +138,9 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
 
                 }
             });
- /*
-
-
-        mClientFragment = getResources().getString(R.string.client_fragment);
-        mFemaleFragment = getResources().getString(R.string.female_fragment);
-        mMaleFragment = getResources().getString(R.string.male_fragment);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mTransaction = getSupportFragmentManager();
-
-        if (findViewById(R.id.fragment_container) != null) {
-
-            if (savedInstanceState != null) {
-                return;
-            }
-            mClientContactFragment = new ClientContact();
-            mClientContactFragment.setArguments(getIntent().getExtras());
-
-            mTransaction
-                    .beginTransaction()
-                    .add(R.id.fragment_container, mClientContactFragment, mClientFragment)
-                    .addToBackStack(null)
-                    .commit();
-
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.contactFab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Fragment currentFragment = mTransaction.findFragmentById(R.id.fragment_container);
-
-                    if (currentFragment.getTag() != null)
-                        switch (currentFragment.getTag()) {
-                        case "client_fragment":
-                            ((ClientContact) currentFragment).writeClientContact();
-                            break;
-                        case "female_fragment":
-                            break;
-                        case "male_fragment":
-                            break;
-
-                    }
-                }
-            });
-        }
-
-    }
-
-
-    @Override
-    public void selectFragment(String otherFragment, ClientContactDTO contactInfo) {
-        Bundle arguments = new Bundle();
-        arguments.putSerializable("clientInfo", contactInfo);
-
-        switch (otherFragment) {
-            case "female":
-                mClientFMeasureFragment = new ClientFMeasure();
-                mClientFMeasureFragment.setArguments(arguments);
-                mTransaction
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, mClientFMeasureFragment, mFemaleFragment)
-                        .addToBackStack(null)
-                        .commit();
-                break;
-
-            case "male":
-                mClientMMeasureFragment = new ClientMMeasure();
-                mClientMMeasureFragment.setArguments(arguments);
-                mTransaction
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, mClientMMeasureFragment, mMaleFragment)
-                        .addToBackStack(null)
-                        .commit();
-                break;
-        }
-    }
-*/
-
         } else {
             Intent intent = new Intent(this, GalleryActivity.class);
             this.startActivity(intent);
         }
     }
-
-    @Override
-    public void onListItemClick(ClientContactDTO clickedMovie) {
-        Context context = ContactActivity.this;
-        /*
-        Class destinationActivity = ImagesActivity.class;
-
-        Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("clickedImage", clickedImage);
-        startChildActivityIntent.putExtras(bundle);
-        startActivity(startChildActivityIntent);
-        */
-    }
-
 }

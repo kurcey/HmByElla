@@ -23,9 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 public class GlobalLogin extends AppCompatActivity {
     private static final GlobalLogin ourInstance = new GlobalLogin();
     private static dataSet admin;
+    static private LoginListener mOnLoginListener ;
+    
+    public GlobalLogin( ) {
 
-    public GlobalLogin() {
         admin = dataSet.NOT_SET;
+
     }
 
     public static GlobalLogin getInstance() {
@@ -36,15 +39,15 @@ public class GlobalLogin extends AppCompatActivity {
         return admin;
     }
 
-    public void setAdmin(dataSet admin) {
-        this.admin = admin;
+    public static void setAdmin(dataSet dadmin) {
+        admin = dadmin;
     }
 
-    protected static void initilize_drawer(Context callingContext) {
+    protected static void initialize_drawer(Context callingContext) {
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         Menu mDrawerMenu;
         final MenuItem mSignIn;
-
+        mOnLoginListener = (LoginListener) callingContext; //listener;
         View rootView = ((Activity) callingContext).getWindow().getDecorView();
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         final DrawerLayout drawer = rootView.findViewById(R.id.drawer_layout);
@@ -56,11 +59,9 @@ public class GlobalLogin extends AppCompatActivity {
         NavigationView navigationView = rootView.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavDrawer(callingContext));
         mDrawerMenu = navigationView.getMenu();
-
+        final Menu nav_Menu = navigationView.getMenu();
         mSignIn = mDrawerMenu.findItem(R.id.nav_sign_in);
         if (mUser != null) {
-
-        final Menu nav_Menu = navigationView.getMenu();
 
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference users = mDatabase.getReference("admin").child(mUser.getUid());
@@ -78,6 +79,7 @@ public class GlobalLogin extends AppCompatActivity {
                     nav_Menu.findItem(R.id.nav_storage).setVisible(false);
                     nav_Menu.findItem(R.id.contact).setVisible(false);
                 }
+                mOnLoginListener.onCheckedLogIn(admin);
             }
 
             @Override
@@ -86,11 +88,15 @@ public class GlobalLogin extends AppCompatActivity {
                 mSignIn.setTitle("sign out " + mUser.getDisplayName());
                 nav_Menu.findItem(R.id.nav_storage).setVisible(false);
                 nav_Menu.findItem(R.id.contact).setVisible(false);
+                
             }
         });
         }
-        else
+        else {
             mSignIn.setTitle("sign in");
+            nav_Menu.findItem(R.id.nav_storage).setVisible(false);
+            nav_Menu.findItem(R.id.contact).setVisible(false);
+        }
 
     }
 
@@ -118,6 +124,9 @@ public class GlobalLogin extends AppCompatActivity {
     }
 
 
+    public interface LoginListener {
+        void onCheckedLogIn(dataSet admin);
+    }
 
     enum dataSet {
         NOT_SET,

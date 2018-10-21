@@ -20,8 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -52,7 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class UploadImageActivity extends AppCompatActivity {
+public class UploadImageActivity extends AppCompatActivity implements GlobalLogin.LoginListener {
     private static final int PICK_IMAGE_REQUEST = 234;
     private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
     private EditText mPicDate;
@@ -73,75 +71,13 @@ public class UploadImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (GlobalLogin.isAdmin() == GlobalLogin.dataSet.SET_TRUE) {
-            setContentView(R.layout.storage_activity);
+        setContentView(R.layout.upload_image_activity);
 
-            Button buttonChoose;
-            Button buttonUpload;
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            final Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        GlobalLogin.initialize_drawer(this);
 
-            GlobalLogin.initilize_drawer(this);
-
-            FloatingActionButton fab = findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-
-            SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
-            String todayDate = dateF.format(Calendar.getInstance().getTime());
-
-            mStorageRef = FirebaseStorage.getInstance().getReference();
-
-            buttonChoose = this.findViewById(R.id.buttonChoose);
-            buttonUpload = this.findViewById(R.id.buttonUpload);
-            mGroup = findViewById(R.id.group_switch);
-            mImageView = this.findViewById(R.id.imageView);
-            mPicDate = this.findViewById(R.id.pic_date);
-            mPicDate.setText(todayDate);
-            mOrderLabel = this.findViewById(R.id.group_order_label);
-            mImageTitle = this.findViewById(R.id.imageTitle);
-            mOrderText = this.findViewById(R.id.order_text);
-            mNameLabel = this.findViewById(R.id.group_name_label);
-            mName = this.findViewById(R.id.group_name);
-            mNotesLabel = this.findViewById(R.id.notes_label);
-            mNotes = this.findViewById(R.id.notes);
-
-            buttonChoose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showFileChooser();
-                }
-            });
-
-            buttonUpload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    uploadFile();
-                }
-            });
-
-            mGroup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    toggleGroupSwitch(isChecked);
-                }
-            });
-
-            mPicDate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showDatePicker();
-                }
-            });
-        } else {
-            Intent intent = new Intent(this, GalleryActivity.class);
-            this.startActivity(intent);
-        }
     }
 
     @Override
@@ -294,6 +230,64 @@ public class UploadImageActivity extends AppCompatActivity {
             RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params2.addRule(RelativeLayout.BELOW, R.id.notes_label);
             mNotes.setLayoutParams(params2);
+        }
+    }
+
+    @Override
+    public void onCheckedLogIn(GlobalLogin.dataSet admin) {
+        if (admin == GlobalLogin.dataSet.SET_TRUE) {
+
+            Button buttonChoose;
+            Button buttonUpload;
+
+            SimpleDateFormat dateF = new SimpleDateFormat("MM/dd/yy", Locale.getDefault());
+            String todayDate = dateF.format(Calendar.getInstance().getTime());
+
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+
+            buttonChoose = this.findViewById(R.id.buttonChoose);
+            buttonUpload = this.findViewById(R.id.buttonUpload);
+            mGroup = findViewById(R.id.group_switch);
+            mImageView = this.findViewById(R.id.imageView);
+            mPicDate = this.findViewById(R.id.pic_date);
+            mPicDate.setText(todayDate);
+            mOrderLabel = this.findViewById(R.id.group_order_label);
+            mImageTitle = this.findViewById(R.id.imageTitle);
+            mOrderText = this.findViewById(R.id.order_text);
+            mNameLabel = this.findViewById(R.id.group_name_label);
+            mName = this.findViewById(R.id.group_name);
+            mNotesLabel = this.findViewById(R.id.notes_label);
+            mNotes = this.findViewById(R.id.notes);
+
+            buttonChoose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showFileChooser();
+                }
+            });
+
+            buttonUpload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    uploadFile();
+                }
+            });
+
+            mGroup.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    toggleGroupSwitch(isChecked);
+                }
+            });
+
+            mPicDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDatePicker();
+                }
+            });
+        } else {
+            Intent intent = new Intent(this, GalleryActivity.class);
+            this.startActivity(intent);
         }
     }
 }

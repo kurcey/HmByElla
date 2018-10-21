@@ -26,7 +26,7 @@ import com.firebase.ui.auth.AuthUI;
 import java.util.Arrays;
 import java.util.List;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity implements GlobalLogin.LoginListener{
 
     private static final int RC_SIGN_IN = 123;
 
@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        GlobalLogin.initilize_drawer(this);
+        GlobalLogin.initialize_drawer(this);
 
 // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -58,18 +58,6 @@ public class Login extends AppCompatActivity {
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-
     }
 
     @Override
@@ -86,6 +74,15 @@ public class Login extends AppCompatActivity {
                 nav_Menu.findItem(R.id.nav_storage).setVisible(false);
                 nav_Menu.findItem(R.id.contact).setVisible(false);
             }
+        }
+    }
+
+    @Override
+    public void onCheckedLogIn(GlobalLogin.dataSet admin) {
+        if (admin == GlobalLogin.dataSet.SET_TRUE) {
+
+        }
+        else{
         }
     }
 }

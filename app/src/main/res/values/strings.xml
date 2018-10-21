@@ -20,7 +20,7 @@
     <string name="share_app">Share App</string>
     <string name="sign_in">Sign in</string>
     <string name="gallery">Gallery</string>
-    <string name="manage_images">Manage Images</string>
+    <string name="manage_images">Upload Images</string>
     <string name="about_us">About Ella</string>
     <string name="communicate">Communicate</string>
     <string name="settings">Settings</string>
@@ -33,6 +33,7 @@
     <string name="title_activity_login">Login</string>
 
     <!-- client contact fragment variables. -->
+    <string name="add_contact">Add new Client Info</string>
     <string name="contact">Clients</string>
     <string name="client_fragment">client_fragment</string>
     <string name="client_first_name">First Name</string>
@@ -94,7 +95,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="blank_text"></string>
-    <string name="title_activity_storage">Storage Activity</string>
+    <string name="title_activity_storage">Upload Images</string>
     <string name="title_activity_group_images">Storage Activity</string>
 
     <string name="error_message">There was an error getting the data. Please check your internet
@@ -124,6 +125,10 @@
     <string name="lorem_ipsum4">Sed fermentum lectus eget sapien ullamcorper egestas. Donec pretium eleifend velit. Proin ut ultricies dolor. Ut tempor, felis a accumsan maximus, justo mauris lacinia lorem, ac commodo eros metus non tellus. Fusce rutrum scelerisque mauris, quis finibus tellus. Sed eu ante congue, vulputate ex sed, ornare neque. Praesent id leo nibh. Sed sollicitudin rhoncus odio sit amet consequat. Phasellus faucibus tincidunt nisi, non condimentum tortor sagittis eget. Cras a gravida mauris, sed gravida lorem. In dapibus eros ligula, sed vulputate sem imperdiet sed. Nam pellentesque semper felis eget dignissim. Nulla cursus nec nisl quis consectetur.</string>
     <string name="lorem_ipsum5">Integer ultrices neque tincidunt ultrices placerat. Vestibulum congue ut velit at feugiat. Vestibulum dignissim ultrices sollicitudin. Fusce accumsan ligula id faucibus tristique. Integer pharetra sit amet eros vel maximus. Nunc suscipit turpis sed tortor convallis fermentum vitae a orci. Suspendisse faucibus dictum est, non commodo nulla bibendum in. Quisque lorem mauris, posuere eget nisl a, consectetur consequat arcu. Vestibulum finibus metus id diam lobortis, sit amet lobortis nisi tempor. Fusce faucibus nisl nec leo placerat, ut facilisis quam elementum. Nunc sit amet commodo urna. In gravida tellus et nunc bibendum, eget venenatis ex lacinia. </string>
 
+
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>

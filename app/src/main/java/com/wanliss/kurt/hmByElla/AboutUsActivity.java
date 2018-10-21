@@ -20,7 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-public class AboutUsActivity extends AppCompatActivity {
+public class AboutUsActivity extends AppCompatActivity implements GlobalLogin.LoginListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class AboutUsActivity extends AppCompatActivity {
         final Typeface tf = Typeface.createFromAsset(this.getAssets(), "charmonman_bold.ttf");
         // collapsingToolbarLayout.setCollapsedTitleTypeface(tf);
         collapsingToolbarLayout.setExpandedTitleTypeface(tf);
-        GlobalLogin.initilize_drawer(this);
+        GlobalLogin.initialize_drawer(this);
     }
 
     @Override
@@ -47,4 +47,8 @@ public class AboutUsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onCheckedLogIn(GlobalLogin.dataSet admin) {
+
+    }
 }

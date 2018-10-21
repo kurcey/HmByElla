@@ -13,6 +13,7 @@
 package com.wanliss.kurt.hmByElla;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImagesActivity extends AppCompatActivity
-        implements ImagesAdapter.ListItemClickListener {
+        implements ImagesAdapter.ListItemClickListener , GlobalLogin.LoginListener {
     private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private final List<StoreDisplayDTO> mAllStore = new ArrayList<>();
@@ -49,7 +51,7 @@ public class ImagesActivity extends AppCompatActivity
     private DatabaseReference mStoreDisplayInfo = null;
     private RecyclerView mStoreRecyclerView;
     private ImagesAdapter mStoreRecyclerViewAdapter;
-
+    SwipeController swipeController = null;
     private TextView mErrorMessageDisplay;
 
     @Override
@@ -68,7 +70,8 @@ public class ImagesActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        GlobalLogin.initilize_drawer(this);
+        GlobalLogin.initialize_drawer(this);
+
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
         mStoreRecyclerView = findViewById(R.id.group_display);
@@ -93,16 +96,6 @@ public class ImagesActivity extends AppCompatActivity
 
             }
         });
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
 
     @Override
@@ -123,6 +116,46 @@ public class ImagesActivity extends AppCompatActivity
         startChildActivityIntent.putExtra("clickedMovie", clickedMovie);
         startActivity(startChildActivityIntent);
         */
+    }
+
+    @Override
+    public void onCheckedLogIn(GlobalLogin.dataSet admin) {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        if (admin == GlobalLogin.dataSet.SET_TRUE) {
+
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+
+            swipeController = new SwipeController(new SwipeControllerActions() {
+                @Override
+                public void onRightClicked(int position) {
+/*
+                mContactRecyclerViewAdapter.clients.remove(position);
+                mContactRecyclerViewAdapter.notifyItemRemoved(position);
+                mContactRecyclerViewAdapter.notifyItemRangeChanged(position, mContactRecyclerViewAdapter.getItemCount());
+                */
+
+                }
+            });
+
+            ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+            itemTouchhelper.attachToRecyclerView(mStoreRecyclerView);
+
+            mStoreRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+                @Override
+                public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                    swipeController.onDraw(c);
+                }
+            });
+        }
+        else{
+            fab.setVisibility(View.GONE);
+        }
     }
 
     private void showErrorMessage() {
