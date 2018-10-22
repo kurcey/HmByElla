@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,32 +32,22 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberViewHolder> {
 
     private static final String TAG = ImagesAdapter.class.getSimpleName();
     final private ListItemClickListener mOnClickListener;
     private final List<StoreDisplayDTO> displayList;
-    private final String mImageSize;
-    private int mNumberItems;
     private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
     private final View mView;
+    private final int mNumberItems;
 
     public ImagesAdapter(List<StoreDisplayDTO> displayList, Context galleryActivityContext) {
         mNumberItems = displayList.size();
         mOnClickListener = (ListItemClickListener) galleryActivityContext; //listener;
         this.displayList = displayList;
-        mImageSize = galleryActivityContext.getString(R.string.imageSize);
         mView = ((Activity) galleryActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
-    }
-
-    public void updatedisplayList(ArrayList<StoreDisplayDTO> additionaldisplayList) {
-        this.displayList.addAll(additionaldisplayList);
-        this.mNumberItems = displayList.size();
-        Log.d(TAG, "adding additional Recycler views " + getItemCount());
     }
 
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -66,8 +55,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberView
         int layoutIdForListItem = R.layout.gallery_row;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
-        NumberViewHolder viewHolder = new NumberViewHolder(view);
-        return viewHolder;
+        return new NumberViewHolder(view);
     }
 
     @Override
@@ -99,7 +87,6 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberView
             itemView.setOnClickListener(this);
         }
 
-
         void bind(StoreDisplayDTO movie) {
             galleryText.setText(movie.getName());
 
@@ -112,23 +99,15 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberView
             });
         }
 
-
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             StoreDisplayDTO movieInformation = displayList.get(clickedPosition);
             mOnClickListener.onListItemClick(movieInformation);
 
-            Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getName() ,
+            Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getName(),
                     Snackbar.LENGTH_SHORT)
                     .show();
-
-                  /*  Class destinationActivity = DetailsView.class;
-        Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        startChildActivityIntent.putExtra("clickedMovie", clickedMovie);
-        startActivity(startChildActivityIntent);
-        */
         }
-
     }
 }

@@ -76,7 +76,7 @@ public class StoreDisplayDTO implements Serializable {
     }
 
     public void setNotes(String notes) {
-        notes = notes;
+        this.notes = notes;
     }
 
     public String getDirectory() {

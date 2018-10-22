@@ -46,7 +46,6 @@ public class AboutUsActivity extends AppCompatActivity implements GlobalLogin.Lo
         }
     }
 
-
     @Override
     public void onCheckedLogIn(GlobalLogin.dataSet admin) {
 

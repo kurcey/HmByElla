@@ -74,22 +74,19 @@ Copyright 2018 Kurt Wanliss
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_outline_person_outline_24px" />
 
-                <EditText
+                <TextView
                     android:id="@+id/first_name"
                     android:layout_width="@dimen/contact_width"
                     android:layout_height="@dimen/contact_height"
                     android:layout_marginStart="@dimen/contact_margin"
                     android:layout_marginTop="@dimen/contact_top_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
-                    android:autofillHints="@string/client_first_name"
                     android:ems="10"
                     android:hint="@string/client_first_name"
-                    android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/label_f_name"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/label_m_name"
@@ -105,21 +102,18 @@ Copyright 2018 Kurt Wanliss
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/label_f_name" />
 
-                <EditText
+                <TextView
                     android:id="@+id/middle_name"
                     android:layout_width="@dimen/contact_width"
                     android:layout_height="@dimen/contact_height"
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
-                    android:autofillHints="@string/client_middle_name"
                     android:ems="10"
                     android:hint="@string/client_middle_name"
-                    android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/label_m_name"
-                    app:layout_constraintTop_toBottomOf="@+id/first_name"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toBottomOf="@+id/first_name" />
 
                 <TextView
                     android:id="@+id/label_l_name"
@@ -135,21 +129,18 @@ Copyright 2018 Kurt Wanliss
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/label_m_name" />
 
-                <EditText
+                <TextView
                     android:id="@+id/last_name"
                     android:layout_width="@dimen/contact_width"
                     android:layout_height="@dimen/contact_height"
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
-                    android:autofillHints="@string/client_last_name"
                     android:ems="10"
                     android:hint="@string/client_last_name"
-                    android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/label_l_name"
-                    app:layout_constraintTop_toBottomOf="@+id/middle_name"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toBottomOf="@+id/middle_name" />
 
                 <ImageView
                     android:id="@+id/label_email"
@@ -166,20 +157,17 @@ Copyright 2018 Kurt Wanliss
                     app:layout_constraintTop_toBottomOf="@+id/label_l_name"
                     app:srcCompat="@drawable/ic_outline_email_24px" />
 
-                <EditText
+                <TextView
                     android:id="@+id/email_address"
                     android:layout_width="@dimen/contact_width"
                     android:layout_height="@dimen/contact_height"
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
-                    android:autofillHints="@string/client_email"
                     android:ems="10"
                     android:hint="@string/client_email"
-                    android:inputType="textEmailAddress"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_email"
-                    app:layout_constraintTop_toBottomOf="@+id/last_name"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toBottomOf="@+id/last_name" />
 
                 <ImageView
                     android:id="@+id/label_ph_number"
@@ -196,20 +184,17 @@ Copyright 2018 Kurt Wanliss
                     app:layout_constraintTop_toBottomOf="@+id/label_email"
                     app:srcCompat="@drawable/ic_outline_local_phone_24px" />
 
-                <EditText
+                <TextView
                     android:id="@+id/phone_number"
                     android:layout_width="@dimen/contact_width"
                     android:layout_height="@dimen/contact_height"
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
-                    android:autofillHints="@string/client_phone_number"
                     android:ems="10"
                     android:hint="@string/client_phone_number"
-                    android:inputType="phone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_ph_number"
-                    app:layout_constraintTop_toBottomOf="@+id/email_address"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toBottomOf="@+id/email_address" />
 
                 <ImageView
                     android:id="@+id/label_address"
@@ -226,28 +211,25 @@ Copyright 2018 Kurt Wanliss
                     app:layout_constraintTop_toBottomOf="@+id/label_ph_number"
                     app:srcCompat="@drawable/ic_outline_location_on_24px" />
 
-                <EditText
+                <TextView
                     android:id="@+id/address"
                     android:layout_width="@dimen/contact_width"
                     android:layout_height="@dimen/contact_large_height"
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
-                    android:autofillHints="@string/client_address"
                     android:ems="10"
                     android:hint="@string/client_address"
-                    android:inputType="textMultiLine"
                     android:lines="3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_address"
-                    app:layout_constraintTop_toBottomOf="@+id/phone_number"
-                    tools:targetApi="o" />
+                    app:layout_constraintTop_toBottomOf="@+id/phone_number" />
 
                 <Button
                     android:id="@+id/female_button"
                     android:layout_width="@dimen/contact_button_width"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="@string/add_female"
+                    android:text="@string/display_female"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/address" />
@@ -257,7 +239,7 @@ Copyright 2018 Kurt Wanliss
                     android:layout_width="@dimen/contact_button_width"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="@string/add_male"
+                    android:text="@string/display_male"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/female_button" />
@@ -265,14 +247,6 @@ Copyright 2018 Kurt Wanliss
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v4.widget.NestedScrollView>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_save_white_24dp" />
 
     </android.support.design.widget.CoordinatorLayout>
 

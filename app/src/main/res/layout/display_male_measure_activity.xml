@@ -98,22 +98,18 @@ Copyright 2018 Kurt Wanliss
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/m_chest"
                         android:layout_width="@dimen/measurement_width"
                         android:layout_height="@dimen/measurement_height"
                         android:layout_marginStart="@dimen/measurement_margin_left"
-                        android:layout_marginTop="@dimen/measurement_between_margin"
+                        android:layout_marginTop="@dimen/measurement_between_margin_text"
                         android:layout_marginEnd="@dimen/measurement_margin"
-                        android:autofillHints="@string/measurement"
                         android:ems="10"
-                        android:hint="@string/measurement"
-                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.42"
                         app:layout_constraintStart_toEndOf="@+id/label_chest"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:targetApi="o" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/label_waist_male"
@@ -128,22 +124,18 @@ Copyright 2018 Kurt Wanliss
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/label_chest" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/m_waist"
                         android:layout_width="@dimen/measurement_width"
                         android:layout_height="@dimen/measurement_height"
                         android:layout_marginStart="@dimen/measurement_margin_left"
                         android:layout_marginTop="@dimen/measurement_between_margin"
                         android:layout_marginEnd="@dimen/measurement_margin"
-                        android:autofillHints="@string/measurement"
                         android:ems="10"
-                        android:hint="@string/measurement"
-                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias=".42"
                         app:layout_constraintStart_toEndOf="@+id/label_waist_male"
-                        app:layout_constraintTop_toBottomOf="@id/m_chest"
-                        tools:targetApi="o" />
+                        app:layout_constraintTop_toBottomOf="@id/m_chest" />
 
                     <TextView
                         android:id="@+id/label_hips_male"
@@ -158,22 +150,18 @@ Copyright 2018 Kurt Wanliss
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/label_waist_male" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/m_hips"
                         android:layout_width="@dimen/measurement_width"
                         android:layout_height="@dimen/measurement_height"
                         android:layout_marginStart="@dimen/measurement_margin_left"
                         android:layout_marginTop="@dimen/measurement_between_margin"
                         android:layout_marginEnd="@dimen/measurement_margin"
-                        android:autofillHints="@string/measurement"
                         android:ems="10"
-                        android:hint="@string/measurement"
-                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.42"
                         app:layout_constraintStart_toEndOf="@+id/label_hips_male"
-                        app:layout_constraintTop_toBottomOf="@id/m_waist"
-                        tools:targetApi="o" />
+                        app:layout_constraintTop_toBottomOf="@id/m_waist" />
 
                     <TextView
                         android:id="@+id/label_rise_male"
@@ -188,22 +176,18 @@ Copyright 2018 Kurt Wanliss
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/label_hips_male" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/m_rise"
                         android:layout_width="@dimen/measurement_width"
                         android:layout_height="@dimen/measurement_height"
                         android:layout_marginStart="28dp"
                         android:layout_marginTop="@dimen/measurement_between_margin"
                         android:layout_marginEnd="@dimen/measurement_margin"
-                        android:autofillHints="@string/measurement"
                         android:ems="10"
-                        android:hint="@string/measurement"
-                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.42"
                         app:layout_constraintStart_toEndOf="@+id/label_rise_male"
-                        app:layout_constraintTop_toBottomOf="@+id/m_hips"
-                        tools:targetApi="o" />
+                        app:layout_constraintTop_toBottomOf="@+id/m_hips" />
 
                     <TextView
                         android:id="@+id/label_length_male"
@@ -218,22 +202,18 @@ Copyright 2018 Kurt Wanliss
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/label_rise_male" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/m_length"
                         android:layout_width="@dimen/measurement_width"
                         android:layout_height="@dimen/measurement_height"
                         android:layout_marginStart="28dp"
                         android:layout_marginTop="@dimen/measurement_between_margin"
                         android:layout_marginEnd="@dimen/measurement_margin"
-                        android:autofillHints="@string/measurement"
                         android:ems="10"
-                        android:hint="@string/measurement"
-                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.42"
                         app:layout_constraintStart_toEndOf="@+id/label_length_male"
-                        app:layout_constraintTop_toBottomOf="@+id/m_rise"
-                        tools:targetApi="o" />
+                        app:layout_constraintTop_toBottomOf="@+id/m_rise" />
 
                     <TextView
                         android:id="@+id/label_inseam_male"
@@ -248,22 +228,18 @@ Copyright 2018 Kurt Wanliss
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/label_length_male" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/m_inseam"
                         android:layout_width="@dimen/measurement_width"
                         android:layout_height="@dimen/measurement_height"
                         android:layout_marginStart="@dimen/measurement_margin_left"
                         android:layout_marginTop="@dimen/measurement_between_margin"
                         android:layout_marginEnd="@dimen/measurement_margin"
-                        android:autofillHints="@string/measurement"
                         android:ems="10"
-                        android:hint="@string/measurement"
-                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.42"
                         app:layout_constraintStart_toEndOf="@+id/label_inseam_male"
-                        app:layout_constraintTop_toBottomOf="@+id/m_length"
-                        tools:targetApi="o" />
+                        app:layout_constraintTop_toBottomOf="@+id/m_length" />
 
                     <TextView
                         android:id="@+id/label_outseam_male"
@@ -278,22 +254,18 @@ Copyright 2018 Kurt Wanliss
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/label_inseam_male" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/m_outseam"
                         android:layout_width="@dimen/measurement_width"
                         android:layout_height="@dimen/measurement_height"
                         android:layout_marginStart="@dimen/measurement_margin_left"
                         android:layout_marginTop="@dimen/measurement_between_margin"
                         android:layout_marginEnd="@dimen/measurement_margin"
-                        android:autofillHints="@string/measurement"
                         android:ems="10"
-                        android:hint="@string/measurement"
-                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.42"
                         app:layout_constraintStart_toEndOf="@+id/label_outseam_male"
-                        app:layout_constraintTop_toBottomOf="@+id/m_inseam"
-                        tools:targetApi="o" />
+                        app:layout_constraintTop_toBottomOf="@+id/m_inseam" />
 
                 </android.support.constraint.ConstraintLayout>
 

@@ -23,8 +23,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wanliss.kurt.hmByElla.DTO.ClientContactDTO;
@@ -32,21 +30,23 @@ import com.wanliss.kurt.hmByElla.DTO.ClientContactDTO;
 public class AddClientContactActivity extends AppCompatActivity implements GlobalLogin.LoginListener {
 
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    private final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-    private final DatabaseReference mClientContactInfo = mDatabase.getReference("users");
+    private DatabaseReference mClientContactInfo = null;
+    private String mPassKey = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.add_client_contact_activity);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         GlobalLogin.initialize_drawer(this);
+        mClientContactInfo = mDatabase.getReference(getString(R.string.main_user_db_location));
 
+        ClientContactDTO clickedClient = (ClientContactDTO) getIntent().getSerializableExtra("clickedClient");
+        if (!clickedClient.equals(null)) {
+            mPassKey = clickedClient.getId();
+            writeContact(clickedClient);
+        }
         Button maleBtn = findViewById(R.id.male_button);
         maleBtn.setOnClickListener(
                 new View.OnClickListener() {
@@ -72,7 +72,6 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
                             intent.putExtra("key", key);
                             AddClientContactActivity.this.startActivity(intent);
                             // mCallback.selectFragment("female", mContact);
-
                         }
                     }
                 });
@@ -88,14 +87,18 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
 
     }
 
-    public String writeClientContact() {
-        String key = "";
-        ClientContactDTO contact = readContact();
+    private String writeClientContact() {
+        String key;
+        if (mPassKey.equals(""))
+            key = mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).push().getKey();
+        else
+            key = mPassKey;
+        ClientContactDTO contact = readContact(key);
         //result = ValidateInput(contact.getFirstName(), contact.getLastName());
         NestedScrollView ContactInfo = this.findViewById(R.id.contact_info_frame);
 
-        key = mClientContactInfo.child( mUser.getUid()).child("contacts").push().getKey();
-        mClientContactInfo.child( mUser.getUid()).child("contacts").child(key).setValue(contact);
+
+        mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).child(key).setValue(contact);
         if (!key.equals("")) {
             Snackbar.make(ContactInfo, "Saving Contact", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
@@ -106,17 +109,7 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
         return key;
     }
 
-    private boolean ValidateInput(String fName, String lName) {
-        boolean result = false;
-        if (fName.equals("") || lName.equals("")) {
-            //Snackbar.make(AddClientContactActivity,this, "Please enter first and last Name to Save.", Snackbar.LENGTH_LONG)
-            //         .setAction("Action", null).show();
-        } else result = true;
-
-        return result;
-    }
-
-    private ClientContactDTO readContact() {
+    private ClientContactDTO readContact(String id) {
 
         EditText firstName = findViewById(R.id.first_name);
         EditText lastName = findViewById(R.id.last_name);
@@ -140,16 +133,31 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
         mContact.setEmailAddress(email);
         mContact.setPhoneNumber(phone);
         mContact.setAddress(addr);
+        mContact.setId(id);
 
         return mContact;
+    }
+
+
+    private void writeContact(ClientContactDTO clickedClient) {
+
+        EditText firstName = findViewById(R.id.first_name);
+        EditText lastName = findViewById(R.id.last_name);
+        EditText middleName = findViewById(R.id.middle_name);
+        EditText emailAddress = findViewById(R.id.email_address);
+        EditText phoneNumber = findViewById(R.id.phone_number);
+        EditText address = findViewById(R.id.address);
+
+        firstName.setText(clickedClient.getFirstName());
+        lastName.setText(clickedClient.getLastName());
+        middleName.setText(clickedClient.getMiddleName());
+        emailAddress.setText(clickedClient.getEmailAddress());
+        phoneNumber.setText(clickedClient.getPhoneNumber());
+        address.setText(clickedClient.getAddress());
     }
 
     @Override
     public void onCheckedLogIn(GlobalLogin.dataSet admin) {
 
-    }
-
-    public interface callOtherFragment {
-        void selectFragment(String otherFragment, ClientContactDTO contactInfo);
     }
 }

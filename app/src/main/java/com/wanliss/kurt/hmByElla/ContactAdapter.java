@@ -17,7 +17,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,29 +24,18 @@ import android.widget.TextView;
 
 import com.wanliss.kurt.hmByElla.DTO.ClientContactDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolder> {
     private static final String TAG = GalleryAdapter.class.getSimpleName();
-    public final List<ClientContactDTO> clients;
-    protected final Context context;
+    private final List<ClientContactDTO> clients;
     final private ContactAdapter.ListItemClickListener mOnClickListener;
     private final View mView;
-    private int mNumberItems;
 
     public ContactAdapter(Context context, List<ClientContactDTO> clients) {
         this.clients = clients;
-        this.context = context;
-        mNumberItems = clients.size();
         mOnClickListener = (ListItemClickListener) context; //listener;
         mView = ((Activity) context).getWindow().getDecorView().findViewById(R.id.drawer_layout);
-    }
-
-    public void updatedisplayList(ArrayList<ClientContactDTO> additionaldisplayList) {
-        this.clients.addAll(additionaldisplayList);
-        this.mNumberItems = clients.size();
-        Log.d(TAG, "adding additional Recycler views " + getItemCount());
     }
 
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -55,8 +43,7 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolde
         int layoutIdForListItem = R.layout.contact_row;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
-        NumberViewHolder viewHolder = new NumberViewHolder(view);
-        return viewHolder;
+        return new NumberViewHolder(view);
     }
 
     @Override
@@ -66,7 +53,7 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolde
 
     @Override
     public int getItemCount() {
-        return mNumberItems;
+        return clients.size();
     }
 
     public interface ListItemClickListener {
@@ -88,13 +75,10 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolde
             itemView.setOnClickListener(this);
         }
 
-
         void bind(ClientContactDTO movie) {
-            // System.out.println(movie.getFirstName());
             firstName.setText(movie.getFirstName());
             lastName.setText(movie.getLastName());
         }
-
 
         @Override
         public void onClick(View v) {
@@ -105,13 +89,6 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolde
             Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getFirstName(),
                     Snackbar.LENGTH_SHORT)
                     .show();
-
-                  /*  Class destinationActivity = DetailsView.class;
-        Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        startChildActivityIntent.putExtra("clickedMovie", clickedMovie);
-        startActivity(startChildActivityIntent);
-        */
         }
-
     }
 }

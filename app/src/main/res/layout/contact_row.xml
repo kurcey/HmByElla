@@ -55,7 +55,6 @@ Copyright 2018 Kurt Wanliss
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/club"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Bayern Munchen" />
@@ -70,16 +69,14 @@ Copyright 2018 Kurt Wanliss
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Age: " />
+                android:text="@string/blank_text" />
 
             <TextView
-                android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="26" />
 
             <TextView
-                android:id="@+id/rating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"

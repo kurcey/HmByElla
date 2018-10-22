@@ -14,11 +14,9 @@ package com.wanliss.kurt.hmByElla;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,23 +25,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wanliss.kurt.hmByElla.DTO.ClientMMeasureDTO;
 
-public class AddClientMMeasure extends AppCompatActivity implements GlobalLogin.LoginListener {
+public class DisplayClientMMeasureActivity extends AppCompatActivity implements GlobalLogin.LoginListener {
+
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mClientContactInfo = null;
 
-    private EditText chest = null;
-    private EditText waist = null;
-    private EditText hips = null;
-    private EditText rise = null;
-    private EditText length = null;
-    private EditText inseam = null;
-    private EditText outseam = null;
+    private TextView chest = null;
+    private TextView waist = null;
+    private TextView hips = null;
+    private TextView rise = null;
+    private TextView length = null;
+    private TextView inseam = null;
+    private TextView outseam = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_male_measure_activity);
-        setTheme(R.style.AppTheme);
+        setContentView(R.layout.display_male_measure_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         GlobalLogin.initialize_drawer(this);
@@ -65,11 +63,6 @@ public class AddClientMMeasure extends AppCompatActivity implements GlobalLogin.
         readMaleMeasureFromCloud();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        writeMaleMeasureToCloud();
-    }
 
     private void readMaleMeasureFromCloud() {
         ValueEventListener measurementListener = new ValueEventListener() {
@@ -88,27 +81,6 @@ public class AddClientMMeasure extends AppCompatActivity implements GlobalLogin.
         mClientContactInfo.addListenerForSingleValueEvent(measurementListener);
     }
 
-    private void writeMaleMeasureToCloud() {
-        ClientMMeasureDTO contact = readMaleMeasurementsFromForm();
-        NestedScrollView ContactInfo = this.findViewById(R.id.m_measure_frame);
-
-        mClientContactInfo.setValue(contact);
-
-        Snackbar.make(ContactInfo, "Saving Contact", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
-
-    private ClientMMeasureDTO readMaleMeasurementsFromForm() {
-        String sChest = chest.getText().toString();
-        String sWaist = waist.getText().toString();
-        String sHips = hips.getText().toString();
-        String sRise = rise.getText().toString();
-        String sLength = length.getText().toString();
-        String sInseam = inseam.getText().toString();
-        String sOutseam = outseam.getText().toString();
-
-        return new ClientMMeasureDTO(sChest, sWaist, sHips, sRise, sLength, sInseam, sOutseam);
-    }
 
     private void fillMeasurements(ClientMMeasureDTO mMeasure) {
 
@@ -123,9 +95,6 @@ public class AddClientMMeasure extends AppCompatActivity implements GlobalLogin.
 
     @Override
     public void onCheckedLogIn(GlobalLogin.dataSet admin) {
-        if (admin != GlobalLogin.dataSet.SET_TRUE) {
-            Intent intent = new Intent(this, GalleryActivity.class);
-            this.startActivity(intent);
-        }
+
     }
 }

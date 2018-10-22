@@ -33,18 +33,19 @@ import com.google.android.gms.tasks.Task;
 class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
     private final Context mContext;
     private final Activity mActivity;
-    private final GlobalLogin mAdmin = GlobalLogin.getInstance();
-    Menu nav_Menu;
-    NavigationView navigationView;
+    private final Menu nav_Menu;
+
 
     public NavDrawer(Context currentContext) {
+
+        NavigationView navigationView;
         this.mContext = currentContext;
         this.mActivity = (Activity) currentContext;
 
-       navigationView = this.mActivity.findViewById(R.id.nav_view);
+        navigationView = this.mActivity.findViewById(R.id.nav_view);
         nav_Menu = navigationView.getMenu();
 
-        switch (mAdmin.isAdmin()) {
+        switch (GlobalLogin.isAdmin()) {
             case SET_TRUE:
                 nav_Menu.findItem(R.id.nav_storage).setVisible(true);
                 nav_Menu.findItem(R.id.contact).setVisible(true);
@@ -98,7 +99,7 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
                 break;
 
             case R.id.nav_sign_in:
-                if (GlobalLogin.isAdmin()==GlobalLogin.dataSet.NOT_SET) {
+                if (GlobalLogin.isAdmin() == GlobalLogin.dataSet.NOT_SET) {
                     intent = new Intent(this.mActivity, Login.class);
                     this.mActivity.startActivity(intent);
                 } else signOut(item);

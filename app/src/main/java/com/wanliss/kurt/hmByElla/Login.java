@@ -14,23 +14,20 @@ package com.wanliss.kurt.hmByElla;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Login extends AppCompatActivity implements GlobalLogin.LoginListener{
+public class Login extends AppCompatActivity implements GlobalLogin.LoginListener {
 
     private static final int RC_SIGN_IN = 123;
 
-    Menu nav_Menu;
+    private Menu nav_Menu;
 
 
     @Override
@@ -79,10 +76,5 @@ public class Login extends AppCompatActivity implements GlobalLogin.LoginListene
 
     @Override
     public void onCheckedLogIn(GlobalLogin.dataSet admin) {
-        if (admin == GlobalLogin.dataSet.SET_TRUE) {
-
-        }
-        else{
-        }
     }
 }

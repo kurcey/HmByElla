@@ -68,8 +68,7 @@ Copyright 2018 Kurt Wanliss
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBackground"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
->
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,7 +81,6 @@ Copyright 2018 Kurt Wanliss
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_error_message_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/error_margin"

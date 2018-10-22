@@ -44,6 +44,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -66,18 +68,17 @@ public class UploadImageActivity extends AppCompatActivity implements GlobalLogi
     private TextView mNotesLabel;
     private EditText mNotes;
     private Switch mGroup;
+    private StoreDisplayDTO clickedImage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.upload_image_activity);
-
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         GlobalLogin.initialize_drawer(this);
 
+        clickedImage = (StoreDisplayDTO) getIntent().getSerializableExtra("clickedImage");
     }
 
     @Override
@@ -127,8 +128,8 @@ public class UploadImageActivity extends AppCompatActivity implements GlobalLogi
             if (i > 0) {
                 extension = mFilePath.getPath().substring(i + 1);
             }
-            String fileLocation = "";
-            System.out.println("Kurt this is " + mName.getText().toString());
+            String fileLocation;
+
             if (group.equals("true") && !mOrderText.getText().toString().equals("1")) {
                 fileLocation = "GroupImages/" + mName.getText().toString() + "/" + mImageTitle.getText().toString();
             } else if (group.equals("true") && mOrderText.getText().toString().equals("1")) {
@@ -233,6 +234,22 @@ public class UploadImageActivity extends AppCompatActivity implements GlobalLogi
         }
     }
 
+    private void writeContact(StoreDisplayDTO clickedImage) {
+        mImageTitle.setText(clickedImage.getTitle());
+        mOrderText.setText(clickedImage.getGroupOrder());
+        mName.setText(clickedImage.getName());
+        mNotes.setText(clickedImage.getNotes());
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference dateRef = storage.getReference().child(clickedImage.getPath());
+        dateRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri downloadUrl) {
+                Picasso.with(UploadImageActivity.this).load(downloadUrl).into(mImageView);
+            }
+        });
+    }
+
     @Override
     public void onCheckedLogIn(GlobalLogin.dataSet admin) {
         if (admin == GlobalLogin.dataSet.SET_TRUE) {
@@ -285,6 +302,14 @@ public class UploadImageActivity extends AppCompatActivity implements GlobalLogi
                     showDatePicker();
                 }
             });
+
+            if (clickedImage != null) {
+                writeContact(clickedImage);
+                if (clickedImage.isGroup().equals("true")) {
+                    mGroup.setChecked(true);
+                    toggleGroupSwitch(true);
+                }
+            }
         } else {
             Intent intent = new Intent(this, GalleryActivity.class);
             this.startActivity(intent);

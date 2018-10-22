@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper.Callback;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -17,7 +16,7 @@ enum ButtonsState {
     RIGHT_VISIBLE
 }
 
-public class SwipeController extends Callback{
+class SwipeController extends Callback{
 
     private boolean swipeBack = false;
 
@@ -27,7 +26,7 @@ public class SwipeController extends Callback{
 
     private RecyclerView.ViewHolder currentItemViewHolder = null;
 
-    private SwipeControllerActions buttonsActions = null;
+    private SwipeControllerActions buttonsActions;
 
     private static final float buttonWidth = 300;
 

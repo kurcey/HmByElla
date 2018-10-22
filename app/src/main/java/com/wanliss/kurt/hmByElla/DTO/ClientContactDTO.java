@@ -15,6 +15,7 @@ package com.wanliss.kurt.hmByElla.DTO;
 import java.io.Serializable;
 
 public class ClientContactDTO implements Serializable {
+    private String id;
     private String firstName;
     private String lastName;
     private String middleName;
@@ -26,13 +27,23 @@ public class ClientContactDTO implements Serializable {
 
     }
 
-    public ClientContactDTO(String firstName, String lastName, String middleName, String emailAddress, String phoneNumber, String address) {
+    public ClientContactDTO(String firstName, String lastName, String middleName, String emailAddress, String phoneNumber, String address, String id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.id = id;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {

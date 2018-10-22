@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +32,6 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,23 +40,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberVi
     private static final String TAG = GalleryAdapter.class.getSimpleName();
     final private ListItemClickListener mOnClickListener;
     private final List<StoreDisplayDTO> displayList;
-    private final String mImageSize;
     private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
     private final View mView;
-    private int mNumberItems;
+    private final int mNumberItems;
 
     public GalleryAdapter(List<StoreDisplayDTO> displayList, Context mainActivityContext) {
         mNumberItems = displayList.size();
         mOnClickListener = (ListItemClickListener) mainActivityContext; //listener;
         this.displayList = displayList;
-        mImageSize = mainActivityContext.getString(R.string.imageSize);
         mView = ((Activity) mainActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
-    }
-
-    public void updatedisplayList(ArrayList<StoreDisplayDTO> additionaldisplayList) {
-        this.displayList.addAll(additionaldisplayList);
-        this.mNumberItems = displayList.size();
-        Log.d(TAG, "adding additional Recycler views " + getItemCount());
     }
 
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -66,8 +56,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberVi
         int layoutIdForListItem = R.layout.image_row;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
-        NumberViewHolder viewHolder = new NumberViewHolder(view);
-        return viewHolder;
+        return new NumberViewHolder(view);
     }
 
     @Override
@@ -121,12 +110,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberVi
             Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getName(),
                     Snackbar.LENGTH_SHORT)
                     .show();
-
-                  /*  Class destinationActivity = DetailsView.class;
-        Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        startChildActivityIntent.putExtra("clickedMovie", clickedMovie);
-        startActivity(startChildActivityIntent);
-        */
         }
 
     }

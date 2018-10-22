@@ -23,12 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 public class GlobalLogin extends AppCompatActivity {
     private static final GlobalLogin ourInstance = new GlobalLogin();
     private static dataSet admin;
-    static private LoginListener mOnLoginListener ;
-    
-    public GlobalLogin( ) {
+    static private LoginListener mOnLoginListener;
 
+    public GlobalLogin() {
         admin = dataSet.NOT_SET;
-
     }
 
     public static GlobalLogin getInstance() {
@@ -43,7 +41,7 @@ public class GlobalLogin extends AppCompatActivity {
         admin = dadmin;
     }
 
-    protected static void initialize_drawer(Context callingContext) {
+    static void initialize_drawer(Context callingContext) {
         final FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
         Menu mDrawerMenu;
         final MenuItem mSignIn;
@@ -63,74 +61,48 @@ public class GlobalLogin extends AppCompatActivity {
         mSignIn = mDrawerMenu.findItem(R.id.nav_sign_in);
         if (mUser != null) {
 
-        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference users = mDatabase.getReference("admin").child(mUser.getUid());
-        users.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.getValue().equals("true")) {
-                    admin = dataSet.SET_TRUE;
-                    mSignIn.setTitle("sign out " + mUser.getDisplayName());
-                    nav_Menu.findItem(R.id.nav_storage).setVisible(true);
-                    nav_Menu.findItem(R.id.contact).setVisible(true);
-                } else {
-                    admin = dataSet.SET_FALSE;
+            FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference users = mDatabase.getReference("admin").child(mUser.getUid());
+            users.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if (snapshot.getValue().equals("true")) {
+                        admin = dataSet.SET_TRUE;
+                        mSignIn.setTitle("sign out " + mUser.getDisplayName());
+                        nav_Menu.findItem(R.id.nav_storage).setVisible(true);
+                        nav_Menu.findItem(R.id.contact).setVisible(true);
+                    } else {
+                        admin = dataSet.SET_FALSE;
+                        mSignIn.setTitle("sign out " + mUser.getDisplayName());
+                        nav_Menu.findItem(R.id.nav_storage).setVisible(false);
+                        nav_Menu.findItem(R.id.contact).setVisible(false);
+                    }
+                    mOnLoginListener.onCheckedLogIn(admin);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    admin = dataSet.NOT_SET;
                     mSignIn.setTitle("sign out " + mUser.getDisplayName());
                     nav_Menu.findItem(R.id.nav_storage).setVisible(false);
                     nav_Menu.findItem(R.id.contact).setVisible(false);
-                }
-                mOnLoginListener.onCheckedLogIn(admin);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                admin = dataSet.NOT_SET;
-                mSignIn.setTitle("sign out " + mUser.getDisplayName());
-                nav_Menu.findItem(R.id.nav_storage).setVisible(false);
-                nav_Menu.findItem(R.id.contact).setVisible(false);
-                
-            }
-        });
-        }
-        else {
+                }
+            });
+        } else {
             mSignIn.setTitle("sign in");
             nav_Menu.findItem(R.id.nav_storage).setVisible(false);
             nav_Menu.findItem(R.id.contact).setVisible(false);
         }
-
-    }
-
-    //public class getAdmin implements adminResults
-    protected static void isAdmin(String userId)
-    {
-        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference users = mDatabase.getReference("admin").child(userId);
-        users.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.getValue().equals("true")) {
-                    admin = dataSet.SET_TRUE;
-
-                } else {
-                    admin = dataSet.SET_FALSE;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                admin = dataSet.NOT_SET;
-            }
-        });
-    }
-
-
-    public interface LoginListener {
-        void onCheckedLogIn(dataSet admin);
     }
 
     enum dataSet {
         NOT_SET,
         SET_TRUE,
         SET_FALSE
+    }
+
+    public interface LoginListener {
+        void onCheckedLogIn(dataSet admin);
     }
 }

@@ -16,9 +16,9 @@ public class NewAppWidgetConfigureActivity extends Activity {
 
     private static final String PREFS_NAME = "com.wanliss.kurt.hmByElla.NewAppWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
-    int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    EditText mAppWidgetText;
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
+    private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    private EditText mAppWidgetText;
+    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = NewAppWidgetConfigureActivity.this;
 
@@ -43,7 +43,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
     }
 
     // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, String text) {
+    private static void saveTitlePref(Context context, int appWidgetId, String text) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.putString(PREF_PREFIX_KEY + appWidgetId, text);
         prefs.apply();
@@ -76,7 +76,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
         setResult(RESULT_CANCELED);
 
         setContentView(R.layout.new_app_widget_configure);
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+        mAppWidgetText = findViewById(R.id.appwidget_text);
         findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
@@ -96,4 +96,3 @@ public class NewAppWidgetConfigureActivity extends Activity {
         mAppWidgetText.setText(loadTitlePref(NewAppWidgetConfigureActivity.this, mAppWidgetId));
     }
 }
-
