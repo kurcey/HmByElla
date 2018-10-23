@@ -10,17 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 
 /**
- * The configuration screen for the {@link NewAppWidget NewAppWidget} AppWidget.
+ * The configuration screen for the {@link Widget Widget} AppWidget.
  */
-public class NewAppWidgetConfigureActivity extends Activity {
+public class WidgetConfigureActivity extends Activity {
 
-    private static final String PREFS_NAME = "com.wanliss.kurt.hmByElla.NewAppWidget";
+    private static final String PREFS_NAME = "com.wanliss.kurt.hmByElla.Widget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private EditText mAppWidgetText;
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            final Context context = NewAppWidgetConfigureActivity.this;
+            final Context context = WidgetConfigureActivity.this;
 
             // When the button is clicked, store the string locally
             String widgetText = mAppWidgetText.getText().toString();
@@ -28,7 +28,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            NewAppWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+            Widget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();
@@ -38,7 +38,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
         }
     };
 
-    public NewAppWidgetConfigureActivity() {
+    public WidgetConfigureActivity() {
         super();
     }
 
@@ -75,7 +75,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
         // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
 
-        setContentView(R.layout.new_app_widget_configure);
+        setContentView(R.layout.widget_configure);
         mAppWidgetText = findViewById(R.id.appwidget_text);
         findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
@@ -93,6 +93,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
             return;
         }
 
-        mAppWidgetText.setText(loadTitlePref(NewAppWidgetConfigureActivity.this, mAppWidgetId));
+        mAppWidgetText.setText(loadTitlePref(WidgetConfigureActivity.this, mAppWidgetId));
+
     }
 }

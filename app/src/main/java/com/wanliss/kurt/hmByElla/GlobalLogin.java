@@ -1,4 +1,5 @@
 package com.wanliss.kurt.hmByElla;
+//udacity01
 
 
 import android.app.Activity;
@@ -63,8 +64,13 @@ public class GlobalLogin extends AppCompatActivity {
             DatabaseReference users = mDatabase.getReference("admin").child(mUser.getUid());
             users.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (Objects.requireNonNull(snapshot.getValue()).equals("true")) {
+                public void onDataChange( DataSnapshot snapshot) {
+                    if (snapshot.getValue() == null){
+                        admin = dataSet.SET_FALSE;
+                        mSignIn.setTitle("sign out " + mUser.getDisplayName());
+                        nav_Menu.findItem(R.id.nav_storage).setVisible(false);
+                        nav_Menu.findItem(R.id.contact).setVisible(false);
+                    } else if (snapshot.getValue().equals("true")) {
                         admin = dataSet.SET_TRUE;
                         mSignIn.setTitle("sign out " + mUser.getDisplayName());
                         nav_Menu.findItem(R.id.nav_storage).setVisible(true);
@@ -79,7 +85,7 @@ public class GlobalLogin extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                public void onCancelled( DatabaseError databaseError) {
                     admin = dataSet.NOT_SET;
                     mSignIn.setTitle("sign out " + mUser.getDisplayName());
                     nav_Menu.findItem(R.id.nav_storage).setVisible(false);
