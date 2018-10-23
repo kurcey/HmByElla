@@ -39,6 +39,7 @@ import com.wanliss.kurt.hmByElla.DTO.ClientContactDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ContactActivity extends AppCompatActivity implements ContactAdapter.ListItemClickListener, GlobalLogin.LoginListener {
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -112,12 +113,13 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
 
             mContactRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
                 @Override
-                public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                     swipeController.onDraw(c);
                 }
             });
 
-            mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).addChildEventListener(new ChildEventListener() {
+            mClientContactInfo.child(getString(R.string.main_user_db_contact_location))
+                    .orderByChild("lastName").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     getAllClients(dataSnapshot);
@@ -125,11 +127,12 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    clientDeleted(dataSnapshot);
                     getAllClients(dataSnapshot);
                 }
 
                 @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                     clientDeleted(dataSnapshot);
                 }
 
@@ -138,7 +141,7 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                     // showErrorMessage();
                 }
             });
@@ -153,7 +156,7 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
     private void clientDeleted(DataSnapshot dataSnapshot) {
         ClientContactDTO client = dataSnapshot.getValue(ClientContactDTO.class);
         for (int i = 0; i < mAllClients.size(); i++) {
-            if (mAllClients.get(i).getId().equals(client.getId())) {
+            if (mAllClients.get(i).getId().equals(Objects.requireNonNull(client).getId())) {
                 mAllClients.remove(i);
             }
         }

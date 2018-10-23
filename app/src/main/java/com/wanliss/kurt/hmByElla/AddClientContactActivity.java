@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wanliss.kurt.hmByElla.DTO.ClientContactDTO;
 
+import java.util.Objects;
+
 public class AddClientContactActivity extends AppCompatActivity implements GlobalLogin.LoginListener {
 
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -43,7 +45,7 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
         mClientContactInfo = mDatabase.getReference(getString(R.string.main_user_db_location));
 
         ClientContactDTO clickedClient = (ClientContactDTO) getIntent().getSerializableExtra("clickedClient");
-        if (!clickedClient.equals(null)) {
+        if (clickedClient != null) {
             mPassKey = clickedClient.getId();
             writeContact(clickedClient);
         }
@@ -98,7 +100,7 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
         NestedScrollView ContactInfo = this.findViewById(R.id.contact_info_frame);
 
 
-        mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).child(key).setValue(contact);
+        mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).child(Objects.requireNonNull(key)).setValue(contact);
         if (!key.equals("")) {
             Snackbar.make(ContactInfo, "Saving Contact", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();

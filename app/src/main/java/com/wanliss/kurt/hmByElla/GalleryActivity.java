@@ -47,6 +47,7 @@ import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GalleryActivity extends AppCompatActivity
         implements GalleryAdapter.ListItemClickListener, GlobalLogin.LoginListener {
@@ -79,6 +80,7 @@ public class GalleryActivity extends AppCompatActivity
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        //noinspection RestrictedApi
         fab.setVisibility(View.GONE);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
@@ -106,7 +108,7 @@ public class GalleryActivity extends AppCompatActivity
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 clientDeleted(dataSnapshot);
             }
 
@@ -115,7 +117,7 @@ public class GalleryActivity extends AppCompatActivity
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // showErrorMessage();
             }
         });
@@ -126,7 +128,7 @@ public class GalleryActivity extends AppCompatActivity
     private void clientDeleted(DataSnapshot dataSnapshot) {
         StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
         for (int i = 0; i < mImageToUpload.size(); i++) {
-            if (mImageToUpload.get(i).getPath().equals(store.getPath())) {
+            if (mImageToUpload.get(i).getPath().equals(Objects.requireNonNull(store).getPath())) {
                 mImageToUpload.remove(i);
             }
         }
@@ -178,6 +180,7 @@ public class GalleryActivity extends AppCompatActivity
                     GalleryActivity.this.startActivity(intent);
                 }
             });
+            //noinspection RestrictedApi
             fab.setVisibility(View.VISIBLE);
 
             swipeController = new SwipeController(new SwipeControllerActions() {
@@ -203,7 +206,7 @@ public class GalleryActivity extends AppCompatActivity
 
             mGalleryRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
                 @Override
-                public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                     swipeController.onDraw(c);
                 }
             });
@@ -243,10 +246,10 @@ public class GalleryActivity extends AppCompatActivity
         Query queryRef = mGroupImagesDbRef.child(client.getName()).orderByKey().limitToFirst(200);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
-                    mGroupStoreImages.child(client.getName()).child(store.getName()).delete();
+                    mGroupStoreImages.child(client.getName()).child(Objects.requireNonNull(store).getName()).delete();
                     mThumbnailStoreGroupImages.child(client.getName()).child(store.getName()).delete();
                 }
             }

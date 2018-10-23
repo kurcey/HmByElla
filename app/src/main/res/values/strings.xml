@@ -9,7 +9,8 @@
     <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
     <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
 
-    <string name="main_user_db_location">users/GlJk1ty08Bgtvdbtk6Akyytka983</string>
+    <!-- <string name="main_user_db_location">users/GlJk1ty08Bgtvdbtk6Akyytka983</string> -->
+    <string name="main_user_db_location">users/</string>
     <string name="main_user_db_contact_location">contacts</string>
     <string name="thumbnail_galery_db_location">images/Gallery</string>
     <string name="thumbnail_GroupImages_db_location">images/GroupImages</string>

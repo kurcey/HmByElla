@@ -27,9 +27,6 @@ public class Login extends AppCompatActivity implements GlobalLogin.LoginListene
 
     private static final int RC_SIGN_IN = 123;
 
-    private Menu nav_Menu;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +38,11 @@ public class Login extends AppCompatActivity implements GlobalLogin.LoginListene
 
 // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                // new AuthUI.IdpConfig.EmailBuilder().build(),
-                // new AuthUI.IdpConfig.PhoneBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build() //,
-                //     new AuthUI.IdpConfig.FacebookBuilder().build(),
-                //     new AuthUI.IdpConfig.TwitterBuilder().build()
+                 new AuthUI.IdpConfig.EmailBuilder().build(),
+                 new AuthUI.IdpConfig.PhoneBuilder().build(),
+                 new AuthUI.IdpConfig.GoogleBuilder().build(),
+                 new AuthUI.IdpConfig.FacebookBuilder().build(),
+                 new AuthUI.IdpConfig.TwitterBuilder().build()
         );
 
 // Create and launch sign-in intent
@@ -67,9 +64,6 @@ public class Login extends AppCompatActivity implements GlobalLogin.LoginListene
             if (resultCode == RESULT_OK) {
                 Intent intent = new Intent(this, GalleryActivity.class);
                 this.startActivity(intent);
-            } else {
-                nav_Menu.findItem(R.id.nav_storage).setVisible(false);
-                nav_Menu.findItem(R.id.contact).setVisible(false);
             }
         }
     }

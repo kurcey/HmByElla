@@ -3,6 +3,7 @@ package com.wanliss.kurt.hmByElla;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,17 +21,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class GlobalLogin extends AppCompatActivity {
-    private static final GlobalLogin ourInstance = new GlobalLogin();
-    private static dataSet admin;
+    private static dataSet admin = dataSet.NOT_SET;
     static private LoginListener mOnLoginListener;
 
     public GlobalLogin() {
         admin = dataSet.NOT_SET;
-    }
-
-    public static GlobalLogin getInstance() {
-        return ourInstance;
     }
 
     public static dataSet isAdmin() {
@@ -65,8 +63,8 @@ public class GlobalLogin extends AppCompatActivity {
             DatabaseReference users = mDatabase.getReference("admin").child(mUser.getUid());
             users.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot snapshot) {
-                    if (snapshot.getValue().equals("true")) {
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (Objects.requireNonNull(snapshot.getValue()).equals("true")) {
                         admin = dataSet.SET_TRUE;
                         mSignIn.setTitle("sign out " + mUser.getDisplayName());
                         nav_Menu.findItem(R.id.nav_storage).setVisible(true);
@@ -81,7 +79,7 @@ public class GlobalLogin extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                     admin = dataSet.NOT_SET;
                     mSignIn.setTitle("sign out " + mUser.getDisplayName());
                     nav_Menu.findItem(R.id.nav_storage).setVisible(false);

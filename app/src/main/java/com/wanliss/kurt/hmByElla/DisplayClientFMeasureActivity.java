@@ -14,6 +14,7 @@ package com.wanliss.kurt.hmByElla;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
@@ -117,7 +118,7 @@ public class DisplayClientFMeasureActivity extends AppCompatActivity implements 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };

@@ -42,6 +42,7 @@ import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ImagesActivity extends AppCompatActivity
         implements ImagesAdapter.ListItemClickListener, GlobalLogin.LoginListener {
@@ -73,7 +74,7 @@ public class ImagesActivity extends AppCompatActivity
 
         if (extras != null) {
             clickedImage = (StoreDisplayDTO) extras.getSerializable("clickedImage");
-            this.setTitle(clickedImage.getName());
+            this.setTitle(Objects.requireNonNull(clickedImage).getName());
             mStoreDisplayInfo = mDatabase.getReference(getString(R.string.thumbnail_GroupImages_db_location)).child(clickedImage.getName());
             mGroupStoreImages = storage.getReference(getString(R.string.storage_group_images)).child(clickedImage.getName());
             mThumbnailStoreGroupImages = storage.getReference(getString(R.string.storage_thumbnails_group_images)).child(clickedImage.getName());
@@ -91,7 +92,7 @@ public class ImagesActivity extends AppCompatActivity
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 imagesDeleted(dataSnapshot);
             }
 
@@ -100,7 +101,7 @@ public class ImagesActivity extends AppCompatActivity
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // showErrorMessage();
             }
         });
@@ -114,11 +115,6 @@ public class ImagesActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public void onListItemClick(StoreDisplayDTO clickedMovie) {
-
     }
 
     @Override
@@ -148,7 +144,7 @@ public class ImagesActivity extends AppCompatActivity
 
             mStoreRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
                 @Override
-                public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                     swipeController.onDraw(c);
                 }
             });
@@ -186,7 +182,7 @@ public class ImagesActivity extends AppCompatActivity
     private void imagesDeleted(DataSnapshot dataSnapshot) {
         StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
         for (int i = 0; i < mDisplayImage.size(); i++) {
-            if (mDisplayImage.get(i).getPath().equals(store.getPath())) {
+            if (mDisplayImage.get(i).getPath().equals(Objects.requireNonNull(store).getPath())) {
                 mDisplayImage.remove(i);
             }
         }

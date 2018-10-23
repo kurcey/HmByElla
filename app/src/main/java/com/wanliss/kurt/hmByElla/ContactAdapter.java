@@ -38,6 +38,7 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolde
         mView = ((Activity) context).getWindow().getDecorView().findViewById(R.id.drawer_layout);
     }
 
+    @NonNull
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.contact_row;
@@ -63,13 +64,11 @@ class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.NumberViewHolde
     class NumberViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        final Context thisContext;
         final TextView firstName;
         final TextView lastName;
 
         NumberViewHolder(View itemView) {
             super(itemView);
-            thisContext = itemView.getContext();
             firstName = itemView.findViewById(R.id.first_name);
             lastName = itemView.findViewById(R.id.last_name);
             itemView.setOnClickListener(this);

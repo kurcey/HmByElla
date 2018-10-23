@@ -51,6 +51,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberVi
         mView = ((Activity) mainActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
     }
 
+    @NonNull
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.image_row;

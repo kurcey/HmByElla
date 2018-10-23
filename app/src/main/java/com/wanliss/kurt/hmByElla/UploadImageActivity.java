@@ -51,6 +51,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class UploadImageActivity extends AppCompatActivity implements GlobalLogin.LoginListener {
     private static final int PICK_IMAGE_REQUEST = 234;
@@ -124,7 +125,7 @@ public class UploadImageActivity extends AppCompatActivity implements GlobalLogi
             assert mUser != null;
             String extension = "";
 
-            int i = mFilePath.getPath().lastIndexOf('.');
+            int i = Objects.requireNonNull(mFilePath.getPath()).lastIndexOf('.');
             if (i > 0) {
                 extension = mFilePath.getPath().substring(i + 1);
             }

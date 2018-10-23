@@ -37,7 +37,6 @@ import java.util.List;
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberViewHolder> {
 
     private static final String TAG = ImagesAdapter.class.getSimpleName();
-    final private ListItemClickListener mOnClickListener;
     private final List<StoreDisplayDTO> displayList;
     private final FirebaseStorage mStorage = FirebaseStorage.getInstance();
     private final View mView;
@@ -45,11 +44,11 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberView
 
     public ImagesAdapter(List<StoreDisplayDTO> displayList, Context galleryActivityContext) {
         mNumberItems = displayList.size();
-        mOnClickListener = (ListItemClickListener) galleryActivityContext; //listener;
         this.displayList = displayList;
         mView = ((Activity) galleryActivityContext).getWindow().getDecorView().findViewById(R.id.drawer_layout);
     }
 
+    @NonNull
     public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.gallery_row;
@@ -69,7 +68,6 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberView
     }
 
     public interface ListItemClickListener {
-        void onListItemClick(StoreDisplayDTO clickedMovie);
     }
 
     class NumberViewHolder extends RecyclerView.ViewHolder
@@ -103,7 +101,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.NumberView
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             StoreDisplayDTO movieInformation = displayList.get(clickedPosition);
-            mOnClickListener.onListItemClick(movieInformation);
+            //mOnClickListener.onListItemClick(movieInformation);
 
             Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getName(),
                     Snackbar.LENGTH_SHORT)
