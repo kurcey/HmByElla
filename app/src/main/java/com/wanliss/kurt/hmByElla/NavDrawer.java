@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = NavDrawer.class.getSimpleName();
     private final Context mContext;
     private final Activity mActivity;
     private final Menu nav_Menu;
@@ -89,8 +90,8 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
             case R.id.nav_share:
                 intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, "Try the Hand Made by Ella App in the google app store");
-                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, this.mActivity.getString(R.string.share_text));
+                intent.setType(this.mActivity.getString(R.string.share_type));
                 this.mActivity.startActivity(intent);
                 break;
 
@@ -106,7 +107,8 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
                 break;
 
             default:
-                Snackbar.make(this.mActivity.findViewById(R.id.drawer_layout), item.getTitle() + " " + Integer.toString(id),
+                Snackbar.make(this.mActivity.findViewById(R.id.drawer_layout), item.getTitle()
+                                + this.mActivity.getString(R.string.space_text) + Integer.toString(id),
                         Snackbar.LENGTH_SHORT)
                         .show();
                 break;
@@ -119,7 +121,7 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
 
     private void signOut(MenuItem item) {
         GlobalLogin.setAdmin(GlobalLogin.dataSet.NOT_SET);
-        item.setTitle("sign in");
+        item.setTitle(this.mActivity.getString(R.string.sign_in));
         nav_Menu.findItem(R.id.nav_storage).setVisible(false);
         nav_Menu.findItem(R.id.contact).setVisible(false);
         AuthUI.getInstance()
@@ -132,23 +134,24 @@ class NavDrawer implements NavigationView.OnNavigationItemSelectedListener {
                 });
     }
 
+
     private void sendEmail() {
-        Log.i("Send EmailElla", "");
-        String[] TO = {"sweetella1978@yahoo.com\""};
-        String[] CC = {""};
+        Log.i(TAG, this.mActivity.getString(R.string.nav_email_intent));
+        String[] TO = {this.mActivity.getString(R.string.nav_email)};
+        String[] CC = {this.mActivity.getString(R.string.blank_text)};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        //emailIntent.setType("text/plain");
-        emailIntent.setData(Uri.parse("mailto:sweetella1978@yahoo.com"));
+        //emailIntent.setType(this.mActivity.getString(R.string.nav_email_type));
+        emailIntent.setData(Uri.parse(this.mActivity.getString(R.string.nav_email_mailto)));
         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
         emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Friendly Message from HandMade by Ella");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, this.mActivity.getString(R.string.nav_email_subject));
+        emailIntent.putExtra(Intent.EXTRA_TEXT, this.mActivity.getString(R.string.nav_email_message_hint));
 
         try {
-            this.mActivity.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            this.mActivity.startActivity(Intent.createChooser(emailIntent, this.mActivity.getString(R.string.nav_email_intent)));
             // finish();
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(this.mActivity, "There is no EmailElla client installed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.mActivity, this.mActivity.getString(R.string.toast_no_email_installed), Toast.LENGTH_SHORT).show();
         }
     }
 }

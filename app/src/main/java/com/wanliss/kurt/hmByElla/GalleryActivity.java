@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,10 +31,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,12 +55,12 @@ import java.util.Objects;
 
 public class GalleryActivity extends AppCompatActivity
         implements GalleryAdapter.ListItemClickListener, GlobalLogin.LoginListener {
-
+    private static final String TAG = GalleryActivity.class.getSimpleName();
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private final List<StoreDisplayDTO> mImageToUpload = new ArrayList<>();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private DatabaseReference mGalleryDbImagesRef = null;
     private DatabaseReference mGroupImagesDbRef = null;
-    private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference mLargeStoreGalery = null;
     private StorageReference mThumbnailStoreGallery = null;
     private StorageReference mThumbnailStoreGroupImages = null;
@@ -73,11 +77,14 @@ public class GalleryActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.cptoolLay);
-        final Typeface tf = Typeface.createFromAsset(this.getAssets(), "charmonman_bold.ttf");
+        final Typeface tf = Typeface.createFromAsset(this.getAssets(), getString(R.string.charmonman_file_name));
         // collapsingToolbarLayout.setCollapsedTitleTypeface(tf);
         collapsingToolbarLayout.setExpandedTitleTypeface(tf);
+
         GlobalLogin.initialize_drawer(this);
 
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         //noinspection RestrictedApi
@@ -118,7 +125,7 @@ public class GalleryActivity extends AppCompatActivity
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // showErrorMessage();
+                Log.w(TAG, getString(R.string.gallery_error_msg), databaseError.toException());
             }
         });
 
@@ -156,15 +163,31 @@ public class GalleryActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListItemClick(StoreDisplayDTO clickedImage) {
-        Context context = GalleryActivity.this;
-        Class destinationActivity = ImagesActivity.class;
+    public void onListItemClick(final StoreDisplayDTO clickedImage) {
 
-        Intent startChildActivityIntent = new Intent(context, destinationActivity);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("clickedImage", clickedImage);
-        startChildActivityIntent.putExtras(bundle);
-        startActivity(startChildActivityIntent);
+        mGroupImagesDbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.child(clickedImage.getName()).exists()) {
+                    Context context = GalleryActivity.this;
+                    Class destinationActivity = ImagesActivity.class;
+
+                    Intent startChildActivityIntent = new Intent(context, destinationActivity);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(getString(R.string.gallery_intent_put_key), clickedImage);
+                    startChildActivityIntent.putExtras(bundle);
+                    startActivity(startChildActivityIntent);
+                } else {
+                    Snackbar.make(mGalleryRecyclerView, getString(R.string.gallery_no_sub_images), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.gallery_action), null).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, getString(R.string.gallery_error_msg), databaseError.toException());
+            }
+        });
     }
 
     @Override
@@ -195,7 +218,7 @@ public class GalleryActivity extends AppCompatActivity
                     Class destinationActivity = UploadImageActivity.class;
                     Intent startChildActivityIntent = new Intent(context, destinationActivity);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("clickedImage", mImageToUpload.get(position));
+                    bundle.putSerializable(getString(R.string.gallery_intent_put_key), mImageToUpload.get(position));
                     startChildActivityIntent.putExtras(bundle);
                     startActivity(startChildActivityIntent);
                 }
@@ -238,7 +261,6 @@ public class GalleryActivity extends AppCompatActivity
                 dialog.hide();
             }
         });
-
         dialog.show();
     }
 
@@ -248,15 +270,25 @@ public class GalleryActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
+                    final StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
                     mGroupStoreImages.child(client.getName()).child(Objects.requireNonNull(store).getName()).delete();
-                    mThumbnailStoreGroupImages.child(client.getName()).child(store.getName()).delete();
+                    mThumbnailStoreGroupImages.child(client.getName()).child(store.getName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            mThumbnailStoreGroupImages.child(client.getName()).child(store.getName()).delete();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // File not found
+                        }
+                    });
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.w(TAG, getString(R.string.gallery_error_msg), databaseError.toException());
             }
         });
 
@@ -269,8 +301,8 @@ public class GalleryActivity extends AppCompatActivity
         mGroupImagesDbRef.child(client.getName()).removeValue();
         mGalleryDbImagesRef.child(client.getName()).removeValue();
 
-        Snackbar.make(mGalleryRecyclerView, " Deleted ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Snackbar.make(mGalleryRecyclerView, getString(R.string.gallery_deleted_msg), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.gallery_action), null).show();
     }
 
 }

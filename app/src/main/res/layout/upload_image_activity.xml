@@ -162,7 +162,21 @@ Copyright 2018 Kurt Wanliss
                             android:labelFor="@id/group_name"
                             android:text="@string/group_name"
                             android:visibility="gone" />
-
+<Spinner
+    android:id="@+id/group_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/order_text"
+    android:layout_marginTop="16dp"
+    android:layout_toEndOf="@id/group_name_label"
+    android:autofillHints="@string/hint_group_name"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:text=""
+    android:visibility="gone"
+    tools:targetApi="o"
+    />
+<!--
                         <EditText
                             android:id="@+id/group_name"
                             android:layout_width="wrap_content"
@@ -176,7 +190,7 @@ Copyright 2018 Kurt Wanliss
                             android:text=""
                             android:visibility="gone"
                             tools:targetApi="o" />
-
+-->
 
                         <TextView
                             android:id="@+id/notes_label"

@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 
 import com.firebase.ui.auth.AuthUI;
 
@@ -36,13 +35,16 @@ public class Login extends AppCompatActivity implements GlobalLogin.LoginListene
 
         GlobalLogin.initialize_drawer(this);
 
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
 // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                 new AuthUI.IdpConfig.EmailBuilder().build(),
-                 new AuthUI.IdpConfig.PhoneBuilder().build(),
-                 new AuthUI.IdpConfig.GoogleBuilder().build() //,
-               //  new AuthUI.IdpConfig.FacebookBuilder().build(),
-               //  new AuthUI.IdpConfig.TwitterBuilder().build()
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build() //,
+                //  new AuthUI.IdpConfig.FacebookBuilder().build(),
+                //  new AuthUI.IdpConfig.TwitterBuilder().build()
         );
 
 // Create and launch sign-in intent

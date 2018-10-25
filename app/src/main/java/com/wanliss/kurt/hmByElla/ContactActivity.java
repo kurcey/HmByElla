@@ -26,6 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ContactActivity extends AppCompatActivity implements ContactAdapter.ListItemClickListener, GlobalLogin.LoginListener {
+    private static final String TAG = ContactActivity.class.getSimpleName();
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mClientContactInfo = null;
     private SwipeController swipeController = null;
@@ -57,6 +59,10 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         GlobalLogin.initialize_drawer(this);
+
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
         mClientContactInfo = mDatabase.getReference(getString(R.string.main_user_db_location));
     }
 
@@ -66,7 +72,7 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
         Class destinationActivity = DisplayClientContactActivity.class;
         Intent startChildActivityIntent = new Intent(context, destinationActivity);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("clickedClient", clickedClient);
+        bundle.putSerializable(getString(R.string.add_contact_intent_key), clickedClient);
         startChildActivityIntent.putExtras(bundle);
         startActivity(startChildActivityIntent);
     }
@@ -102,7 +108,7 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
                     Class destinationActivity = AddClientContactActivity.class;
                     Intent startChildActivityIntent = new Intent(context, destinationActivity);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("clickedClient", mAllClients.get(position));
+                    bundle.putSerializable(getString(R.string.add_contact_intent_key), mAllClients.get(position));
                     startChildActivityIntent.putExtras(bundle);
                     startActivity(startChildActivityIntent);
                 }
@@ -119,7 +125,7 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
             });
 
             mClientContactInfo.child(getString(R.string.main_user_db_contact_location))
-                    .orderByChild("lastName").addChildEventListener(new ChildEventListener() {
+                    .orderByChild(getString(R.string.add_contact_orderby)).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     getAllClients(dataSnapshot);
@@ -142,7 +148,7 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // showErrorMessage();
+                    Log.w(TAG, getString(R.string.add_contact_error_msg), databaseError.toException());
                 }
             });
 
@@ -176,8 +182,8 @@ public class ContactActivity extends AppCompatActivity implements ContactAdapter
         String clientId = client.getId();
         mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).child(clientId).removeValue();
         mClientContactInfo.child(getString(R.string.main_user_db_measurement_location)).child(clientId).removeValue();
-        Snackbar.make(mContactRecyclerView, " Deleted ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Snackbar.make(mContactRecyclerView, getString(R.string.add_contact_deleted_msg), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.add_contact_saving_contact_action), null).show();
     }
 
     private void validateDeleteDialog(final ClientContactDTO client) {

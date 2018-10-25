@@ -19,6 +19,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wanliss.kurt.hmByElla.DTO.ClientfMeasureDTO;
 
 public class AddClientFMeasure extends AppCompatActivity implements GlobalLogin.LoginListener {
+    private static final String TAG = AddClientFMeasure.class.getSimpleName();
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mClientContactInfo = null;
 
@@ -70,6 +72,9 @@ public class AddClientFMeasure extends AppCompatActivity implements GlobalLogin.
         setSupportActionBar(toolbar);
         GlobalLogin.initialize_drawer(this);
 
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
         neck = findViewById(R.id.f_neck);
         frontWidth = findViewById(R.id.f_front_width);
         highBust = findViewById(R.id.f_high_bust);
@@ -100,11 +105,11 @@ public class AddClientFMeasure extends AppCompatActivity implements GlobalLogin.
         waistFloor = findViewById(R.id.f_waist_floor);
 
         Intent i = getIntent();
-        String key = i.getStringExtra("key");
+        String key = i.getStringExtra(getString(R.string.add_fmeasure_intent_key));
         mClientContactInfo = mDatabase.getReference(getString(R.string.main_user_db_location))
                 .child(getString(R.string.main_user_db_measurement_location))
                 .child(key)
-                .child("fMeasure");
+                .child(getString(R.string.add_fmeasure_db_location));
         readFemaleMeasureFromCloud();
     }
 
@@ -112,6 +117,7 @@ public class AddClientFMeasure extends AppCompatActivity implements GlobalLogin.
     public void onStop() {
         super.onStop();
         writeFemaleMeasureToCloud();
+        finish();
     }
 
     private void readFemaleMeasureFromCloud() {
@@ -125,7 +131,7 @@ public class AddClientFMeasure extends AppCompatActivity implements GlobalLogin.
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                Log.w(TAG, getString(R.string.add_fmeasure_error_msg), databaseError.toException());
             }
         };
         mClientContactInfo.addListenerForSingleValueEvent(measurementListener);
@@ -137,8 +143,8 @@ public class AddClientFMeasure extends AppCompatActivity implements GlobalLogin.
 
         mClientContactInfo.setValue(contact);
 
-        Snackbar.make(ContactInfo, "Saving Contact", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Snackbar.make(ContactInfo, getString(R.string.add_fmeasure_saving_msg), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.add_fmeasure_saving_contact_action), null).show();
     }
 
 

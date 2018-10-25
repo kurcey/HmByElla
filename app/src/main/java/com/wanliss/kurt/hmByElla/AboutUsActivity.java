@@ -20,7 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-public class AboutUsActivity extends AppCompatActivity implements GlobalLogin.LoginListener{
+public class AboutUsActivity extends AppCompatActivity implements GlobalLogin.LoginListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +30,14 @@ public class AboutUsActivity extends AppCompatActivity implements GlobalLogin.Lo
         setSupportActionBar(toolbar);
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.cptoolLay);
-        final Typeface tf = Typeface.createFromAsset(this.getAssets(), "charmonman_bold.ttf");
+        final Typeface tf = Typeface.createFromAsset(this.getAssets(), getString(R.string.charmonman_file_name));
         // collapsingToolbarLayout.setCollapsedTitleTypeface(tf);
         collapsingToolbarLayout.setExpandedTitleTypeface(tf);
         GlobalLogin.initialize_drawer(this);
+
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
     }
 
     @Override

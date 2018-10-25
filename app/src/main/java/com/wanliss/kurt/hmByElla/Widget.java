@@ -5,7 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.widget.ImageView;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,13 +20,12 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.wanliss.kurt.hmByElla.DTO.StoreDisplayDTO;
 
-import java.util.Objects;
-
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link WidgetConfigureActivity WidgetConfigureActivity}
  */
 public class Widget extends AppWidgetProvider {
+    private static final String TAG = Widget.class.getSimpleName();
 
     static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
                                 final int appWidgetId) {
@@ -46,7 +45,7 @@ public class Widget extends AppWidgetProvider {
 */
 
 
-        Query queryRef = mGroupImagesDbRef.orderByChild("date").limitToFirst(1);
+        Query queryRef = mGroupImagesDbRef.orderByChild(context.getString(R.string.widget_db_orderby)).limitToFirst(1);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -57,27 +56,27 @@ public class Widget extends AppWidgetProvider {
                     dateRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri downloadUrl) {
-                           // Picasso.with(context).load(downloadUrl).into(posterImage);
+                            // Picasso.with(context).load(downloadUrl).into(posterImage);
                             Picasso.with(context)
                                     .load(downloadUrl)
-                                    .into(views, R.id.imageView, new int[] {appWidgetId});
+                                    .into(views, R.id.imageView, new int[]{appWidgetId});
                             appWidgetManager.updateAppWidget(appWidgetId, views);
-                          //  views.setImageViewBitmap(R.id.imageView , );
+                            //  views.setImageViewBitmap(R.id.imageView , );
                         }
                     });
-                   // posterText.setText(movie.getName());
+                    // posterText.setText(movie.getName());
 
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.w(TAG, context.getString(R.string.widget_error_msg), databaseError.toException());
             }
         });
 
         // Instruct the widget manager to update the widget
-       // appWidgetManager.updateAppWidget(appWidgetId, views);
+        // appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override

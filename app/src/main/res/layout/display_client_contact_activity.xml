@@ -82,7 +82,7 @@ Copyright 2018 Kurt Wanliss
                     android:layout_marginTop="@dimen/contact_top_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
                     android:ems="10"
-                    android:hint="@string/client_first_name"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/label_f_name"
@@ -109,7 +109,6 @@ Copyright 2018 Kurt Wanliss
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
                     android:ems="10"
-                    android:hint="@string/client_middle_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/label_m_name"
@@ -136,7 +135,6 @@ Copyright 2018 Kurt Wanliss
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
                     android:ems="10"
-                    android:hint="@string/client_last_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/label_l_name"
@@ -164,7 +162,6 @@ Copyright 2018 Kurt Wanliss
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
                     android:ems="10"
-                    android:hint="@string/client_email"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_email"
                     app:layout_constraintTop_toBottomOf="@+id/last_name" />
@@ -191,7 +188,7 @@ Copyright 2018 Kurt Wanliss
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
                     android:ems="10"
-                    android:hint="@string/client_phone_number"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_ph_number"
                     app:layout_constraintTop_toBottomOf="@+id/email_address" />
@@ -218,7 +215,6 @@ Copyright 2018 Kurt Wanliss
                     android:layout_marginTop="@dimen/contact_margin"
                     android:layout_marginEnd="@dimen/contact_margin"
                     android:ems="10"
-                    android:hint="@string/client_address"
                     android:lines="3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/label_address"

@@ -27,6 +27,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,10 +47,11 @@ import java.util.Objects;
 
 public class ImagesActivity extends AppCompatActivity
         implements ImagesAdapter.ListItemClickListener, GlobalLogin.LoginListener {
+    private static final String TAG = ContactActivity.class.getSimpleName();
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private final List<StoreDisplayDTO> mDisplayImage = new ArrayList<>();
-    private DatabaseReference mStoreDisplayInfo = null;
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private DatabaseReference mStoreDisplayInfo = null;
     private StorageReference mGroupStoreImages = null;
     private StorageReference mThumbnailStoreGroupImages = null;
     private RecyclerView mStoreRecyclerView;
@@ -64,6 +66,9 @@ public class ImagesActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         GlobalLogin.initialize_drawer(this);
 
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
         mStoreRecyclerView = findViewById(R.id.group_display);
         mStoreRecyclerView.setHasFixedSize(true);
@@ -73,7 +78,7 @@ public class ImagesActivity extends AppCompatActivity
         StoreDisplayDTO clickedImage;
 
         if (extras != null) {
-            clickedImage = (StoreDisplayDTO) extras.getSerializable("clickedImage");
+            clickedImage = (StoreDisplayDTO) extras.getSerializable(getString(R.string.images_intent_get_key));
             this.setTitle(Objects.requireNonNull(clickedImage).getName());
             mStoreDisplayInfo = mDatabase.getReference(getString(R.string.thumbnail_GroupImages_db_location)).child(clickedImage.getName());
             mGroupStoreImages = storage.getReference(getString(R.string.storage_group_images)).child(clickedImage.getName());
@@ -102,7 +107,7 @@ public class ImagesActivity extends AppCompatActivity
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // showErrorMessage();
+                Log.w(TAG, getString(R.string.images_error_msg), databaseError.toException());
             }
         });
     }
@@ -133,7 +138,7 @@ public class ImagesActivity extends AppCompatActivity
                     Class destinationActivity = UploadImageActivity.class;
                     Intent startChildActivityIntent = new Intent(context, destinationActivity);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("clickedImage", mDisplayImage.get(position));
+                    bundle.putSerializable(getString(R.string.images_intent_put_key), mDisplayImage.get(position));
                     startChildActivityIntent.putExtras(bundle);
                     startActivity(startChildActivityIntent);
                 }
@@ -193,7 +198,6 @@ public class ImagesActivity extends AppCompatActivity
     }
 
     private void getAllImages(DataSnapshot dataSnapshot) {
-
         StoreDisplayDTO store = dataSnapshot.getValue(StoreDisplayDTO.class);
 
         mDisplayImage.add(store);
@@ -208,7 +212,7 @@ public class ImagesActivity extends AppCompatActivity
         mGroupStoreImages.child(client.getName()).delete();
         mThumbnailStoreGroupImages.child(client.getName()).delete();
 
-        Snackbar.make(mStoreRecyclerView, " Deleted ", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Snackbar.make(mStoreRecyclerView, getString(R.string.images_deleted_msg), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.images_action), null).show();
     }
 }

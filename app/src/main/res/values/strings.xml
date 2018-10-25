@@ -24,18 +24,25 @@
     <string name="app_name">HandMade by Ella</string>
     <string name="nav_header_title">HandMade by Ella</string>
     <string name="nav_email">sweetella1978@yahoo.com</string>
+    <string name="nav_email_type">text/plain</string>
+    <string name="nav_email_intent">Send mail...</string>
+    <string name="nav_email_mailto">mailto:sweetella1978@yahoo.com</string>
+    <string name="nav_email_subject">Friendly Message from HandMade by Ella</string>
+    <string name="nav_email_text">Friendly Message from HandMade by Ella</string>
+    <string name="nav_email_message_hint">Email message goes here</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="email_ella">Email Ella</string>
     <string name="share_app">Share App</string>
-    <string name="sign_in">Sign in</string>
+    <string name="share_text">Try the Hand Made by Ella App in the google app store</string>
+    <string name="share_type">text/plain</string>
+    <string name="sign_in">sign in</string>
     <string name="gallery">Gallery</string>
     <string name="manage_images">Upload Images</string>
     <string name="about_us">About Ella</string>
     <string name="communicate">Communicate</string>
     <string name="login">Login</string>
-
 
     <string name="title_activity_login">Login</string>
 
@@ -102,6 +109,7 @@
     <string name="waist_floor">Waist to floor</string>
 
     <string name="blank_text"></string>
+    <string name="space_text"> </string>
     <string name="title_activity_storage">Upload Images</string>
 
     <string name="error_message">There was an error getting the data. Please check your internet
@@ -130,15 +138,138 @@
     <string name="lorem_ipsum4">Sed fermentum lectus eget sapien ullamcorper egestas. Donec pretium eleifend velit. Proin ut ultricies dolor. Ut tempor, felis a accumsan maximus, justo mauris lacinia lorem, ac commodo eros metus non tellus. Fusce rutrum scelerisque mauris, quis finibus tellus. Sed eu ante congue, vulputate ex sed, ornare neque. Praesent id leo nibh. Sed sollicitudin rhoncus odio sit amet consequat. Phasellus faucibus tincidunt nisi, non condimentum tortor sagittis eget. Cras a gravida mauris, sed gravida lorem. In dapibus eros ligula, sed vulputate sem imperdiet sed. Nam pellentesque semper felis eget dignissim. Nulla cursus nec nisl quis consectetur.</string>
     <string name="lorem_ipsum5">Integer ultrices neque tincidunt ultrices placerat. Vestibulum congue ut velit at feugiat. Vestibulum dignissim ultrices sollicitudin. Fusce accumsan ligula id faucibus tristique. Integer pharetra sit amet eros vel maximus. Nunc suscipit turpis sed tortor convallis fermentum vitae a orci. Suspendisse faucibus dictum est, non commodo nulla bibendum in. Quisque lorem mauris, posuere eget nisl a, consectetur consequat arcu. Vestibulum finibus metus id diam lobortis, sit amet lobortis nisi tempor. Fusce faucibus nisl nec leo placerat, ut facilisis quam elementum. Nunc sit amet commodo urna. In gravida tellus et nunc bibendum, eget venenatis ex lacinia. </string>
 
-
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
-
 
     <!-- Confirm delete dialog-->
     <string name="confirm_message">Are you sure that you want to delete</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
 
+    <!-- FAB content description -->
+    <string name="fab_save_client">Hit this button to Save the client</string>
+    <string name="fab_save_image">Hit this button to Add an image</string>
+    <string name="fab_add_client">Hit this button to Add a client</string>
+
+    <!-- Toast messages -->
+    <string name="toast_file_uploaded">File Uploaded </string>
+    <string name="toast_uploaded"> Uploaded </string>
+    <string name="toast_percent_sign_periods"> %...</string>
+    <string name="toast_no_file_chosen">No file chosen! </string>
+    <string name="toast_no_email_installed"> There is no EmailElla client installed. </string>
+    <string name="toast_"></string>
+
+    <!-- Font reference -->
+    <string name="charmonman_file_name">charmonman_bold.ttf</string>
+
+    <!-- Add Activity Strings -->
+    <string name="add_client_clicked">clickedClient</string>
+    <string name="add_client_intent_key">key</string>
+    <string name="add_client_saving_contact">Saving Contact</string>
+    <string name="add_client_saving_contact_action">Action</string>
+    <string name="add_client_saving_contact_error_msg">Unable to save Please input first and last Name</string>
+
+    <!-- Add f measure Activity Strings -->
+    <string name="add_fmeasure_intent_key">key</string>
+    <string name="add_fmeasure_db_location">fMeasure</string>
+    <string name="add_fmeasure_saving_contact_action">Action</string>
+    <string name="add_fmeasure_saving_msg">Saving measurement</string>
+    <string name="add_fmeasure_error_msg">Saving measurement Error</string>
+
+    <!-- Add m measure Activity Strings -->
+    <string name="add_mmeasure_intent_key">key</string>
+    <string name="add_mmeasure_db_location">mMeasure</string>
+    <string name="add_mmeasure_saving_contact_action">Action</string>
+    <string name="add_mmeasure_saving_msg">Saving measurement</string>
+    <string name="add_mmeasure_error_msg">Saving measurement Error</string>
+
+    <!-- contact Activity Strings -->
+    <string name="add_contact_intent_key">clickedClient</string>
+    <string name="add_contact_orderby">lastName</string>
+    <string name="add_contact_db_location">mMeasure</string>
+    <string name="add_contact_saving_contact_action">Action</string>
+    <string name="add_contact_deleted_msg"> Deleted </string>
+    <string name="add_contact_error_msg">Saving contact Error</string>
+
+    <!-- display client Activity Strings -->
+    <string name="display_client_intent_key">clickedClient</string>
+    <string name="display_client_intent_put_key">key</string>
+    <string name="display_client_saving_contact_action">Action</string>
+
+    <!-- display f measure Activity Strings -->
+    <string name="display_fmeasure_intent_key">key</string>
+    <string name="display_fmeasure_db_location">fMeasure</string>
+    <string name="display_fmeasure_error_msg">Display Error</string>
+
+    <!-- display m measure Activity Strings -->
+    <string name="display_mmeasure_intent_key">key</string>
+    <string name="display_mmeasure_db_location">mMeasure</string>
+    <string name="display_mmeasure_error_msg">Display Error</string>
+
+    <!-- gallery Activity Strings -->
+    <string name="gallery_intent_key">key</string>
+    <string name="gallery_db_location">mMeasure</string>
+    <string name="gallery_error_msg">Gallery DB error</string>
+    <string name="gallery_intent_put_key">clickedImage</string>
+    <string name="gallery_deleted_msg"> Deleted </string>
+    <string name="gallery_action">Action</string>
+    <string name="gallery_no_sub_images">This item does not have individual images!</string>
+
+    <!-- globallogin Activity Strings -->
+    <string name="globallogin_db_location">admin</string>
+    <string name="globallogin_sign_in">sign in</string>
+    <string name="globallogin_sign_out">sign out </string>
+    <string name="globallogin_error_msg">Error in global login</string>
+    <string name="globallogin_snapshot_true">true</string>
+
+    <!-- images Activity Strings -->
+    <string name="images_intent_key">key</string>
+    <string name="images_db_location">mMeasure</string>
+    <string name="images_error_msg">Images DB error</string>
+    <string name="images_intent_get_key">clickedImage</string>
+    <string name="images_intent_put_key">clickedImage</string>
+    <string name="images_deleted_msg"> Deleted </string>
+    <string name="images_action">Action</string>
+
+    <!-- Swipe Controler Strings -->
+    <string name="swipe_edit">EDIT</string>
+    <string name="swipe_delete">DELETE</string>
+
+    <!-- UploadImage Activity Strings -->
+    <string name="uploadimages_intent_key">clickedImage</string>
+
+    <string name="uploadimages_dialog_text">Uploading</string>
+    <string name="uploadimages_time_formatt">HH:mm</string>
+    <string name="uploadimages_true">true</string>
+    <string name="uploadimages_false">false</string>
+    <string name="uploadimages_metadata_title">title</string>
+    <string name="uploadimages_metadata_date">date</string>
+    <string name="uploadimages_metadata_time">time</string>
+    <string name="uploadimages_metadata_group">group</string>
+    <string name="uploadimages_metadata_groupOrder">groupOrder</string>
+    <string name="uploadimages_metadata_groupName">groupName</string>
+    <string name="uploadimages_metadata_notes">notes</string>
+
+    <string name="uploadimages_db_group_images">GroupImages/</string>
+    <string name="uploadimages_db_gallery">Gallery/</string>
+
+    <string name="uploadimages_db_forward_slash">/</string>
+    <string name="uploadimages_chooser_image_all">image/*</string>
+    <string name="uploadimages_intent_title">Select Picture</string>
+    <string name="uploadimages_date_format">MM/dd/yy</string>
+    <string name="uploadimages_error_msg">Upload error</string>
+    <string name="uploadimages_error_msg_missing_title"> To upload a Image you must provide an Image Title! </string>
+    <string name="uploadimages_error_msg_missing_group"> If Group switch is selected you must select a group title! </string>
+
+    <string-array name="images_names">
+    </string-array>
+
+
+    <!-- widget Strings -->
+    <string name="widget_db_orderby">date</string>
+    <string name="widget_error_msg">widget error</string>
+
+    <!-- widget Strings -->
+    <string name="internet_error_msg">No Internet</string>
 </resources>

@@ -32,7 +32,10 @@ public class DisplayClientContactActivity extends AppCompatActivity implements G
         setSupportActionBar(toolbar);
         GlobalLogin.initialize_drawer(this);
 
-        final ClientContactDTO clickedClient = (ClientContactDTO) getIntent().getSerializableExtra("clickedClient");
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
+        final ClientContactDTO clickedClient = (ClientContactDTO) getIntent().getSerializableExtra(getString(R.string.display_client_intent_key));
         writeContact(clickedClient);
 
         Button maleBtn = findViewById(R.id.male_button);
@@ -40,7 +43,7 @@ public class DisplayClientContactActivity extends AppCompatActivity implements G
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(DisplayClientContactActivity.this, DisplayClientMMeasureActivity.class);
-                        intent.putExtra("key", clickedClient.getId());
+                        intent.putExtra(getString(R.string.display_client_intent_put_key), clickedClient.getId());
                         DisplayClientContactActivity.this.startActivity(intent);
                     }
                 });
@@ -50,7 +53,7 @@ public class DisplayClientContactActivity extends AppCompatActivity implements G
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(DisplayClientContactActivity.this, DisplayClientFMeasureActivity.class);
-                        intent.putExtra("key", clickedClient.getId());
+                        intent.putExtra(getString(R.string.display_client_intent_put_key), clickedClient.getId());
                         DisplayClientContactActivity.this.startActivity(intent);
                     }
                 });

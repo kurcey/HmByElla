@@ -102,6 +102,7 @@ Copyright 2018 Kurt Wanliss
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@string/fab_save_image"
             app:srcCompat="@drawable/ic_add_a_photo_white_24dp" />
 
     </android.support.design.widget.CoordinatorLayout>

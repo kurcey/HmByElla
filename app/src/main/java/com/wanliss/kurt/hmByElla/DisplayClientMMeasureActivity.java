@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wanliss.kurt.hmByElla.DTO.ClientMMeasureDTO;
 
 public class DisplayClientMMeasureActivity extends AppCompatActivity implements GlobalLogin.LoginListener {
-
+    private static final String TAG = DisplayClientMMeasureActivity.class.getSimpleName();
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mClientContactInfo = null;
 
@@ -47,6 +48,9 @@ public class DisplayClientMMeasureActivity extends AppCompatActivity implements 
         setSupportActionBar(toolbar);
         GlobalLogin.initialize_drawer(this);
 
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
         chest = findViewById(R.id.m_chest);
         waist = findViewById(R.id.m_waist);
         hips = findViewById(R.id.m_hips);
@@ -56,11 +60,11 @@ public class DisplayClientMMeasureActivity extends AppCompatActivity implements 
         outseam = findViewById(R.id.m_outseam);
 
         Intent i = getIntent();
-        String key = i.getStringExtra("key");
+        String key = i.getStringExtra(getString(R.string.display_mmeasure_intent_key));
         mClientContactInfo = mDatabase.getReference(getString(R.string.main_user_db_location))
                 .child(getString(R.string.main_user_db_measurement_location))
                 .child(key)
-                .child("mMeasure");
+                .child(getString(R.string.display_mmeasure_db_location));
         readMaleMeasureFromCloud();
     }
 
@@ -76,7 +80,7 @@ public class DisplayClientMMeasureActivity extends AppCompatActivity implements 
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                Log.w(TAG, getString(R.string.display_mmeasure_error_msg), databaseError.toException());
             }
         };
         mClientContactInfo.addListenerForSingleValueEvent(measurementListener);

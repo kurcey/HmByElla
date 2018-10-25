@@ -107,10 +107,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.NumberVi
             int clickedPosition = getAdapterPosition();
             StoreDisplayDTO movieInformation = displayList.get(clickedPosition);
             mOnClickListener.onListItemClick(movieInformation);
-
+/*
             Snackbar.make(mView.findViewById(R.id.drawer_layout), movieInformation.getName(),
                     Snackbar.LENGTH_SHORT)
                     .show();
+                    */
         }
 
     }

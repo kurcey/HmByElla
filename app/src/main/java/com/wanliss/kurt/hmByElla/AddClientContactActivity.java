@@ -34,6 +34,7 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
     private final FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference mClientContactInfo = null;
     private String mPassKey = "";
+    private String mKey = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,13 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         GlobalLogin.initialize_drawer(this);
+
+        CheckInternet iTest = new CheckInternet(this);
+        iTest.execute();
+
         mClientContactInfo = mDatabase.getReference(getString(R.string.main_user_db_location));
 
-        ClientContactDTO clickedClient = (ClientContactDTO) getIntent().getSerializableExtra("clickedClient");
+        ClientContactDTO clickedClient = (ClientContactDTO) getIntent().getSerializableExtra(getString(R.string.add_client_clicked));
         if (clickedClient != null) {
             mPassKey = clickedClient.getId();
             writeContact(clickedClient);
@@ -53,10 +58,10 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
         maleBtn.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        String key = writeClientContact();
-                        if (!key.equals("")) {
+                        mKey = writeClientContact();
+                        if (!mKey.equals("")) {
                             Intent intent = new Intent(AddClientContactActivity.this, AddClientMMeasure.class);
-                            intent.putExtra("key", key);
+                            intent.putExtra(getString(R.string.add_client_intent_key), mKey);
                             AddClientContactActivity.this.startActivity(intent);
                             // mCallback.selectFragment("female", mContact);
 
@@ -68,10 +73,10 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
         femaleBtn.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        String key = writeClientContact();
-                        if (!key.equals("")) {
+                        mKey = writeClientContact();
+                        if (!mKey.equals("")) {
                             Intent intent = new Intent(AddClientContactActivity.this, AddClientFMeasure.class);
-                            intent.putExtra("key", key);
+                            intent.putExtra(getString(R.string.add_client_intent_key), mKey);
                             AddClientContactActivity.this.startActivity(intent);
                             // mCallback.selectFragment("female", mContact);
                         }
@@ -90,25 +95,26 @@ public class AddClientContactActivity extends AppCompatActivity implements Globa
     }
 
     private String writeClientContact() {
-        String key;
-        if (mPassKey.equals(""))
-            key = mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).push().getKey();
-        else
-            key = mPassKey;
-        ClientContactDTO contact = readContact(key);
+
+        if (mPassKey.equals("")) {
+            if (mKey.equals(""))
+                mKey = mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).push().getKey();
+        } else
+            mKey = mPassKey;
+        ClientContactDTO contact = readContact(mKey);
         //result = ValidateInput(contact.getFirstName(), contact.getLastName());
         NestedScrollView ContactInfo = this.findViewById(R.id.contact_info_frame);
 
 
-        mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).child(Objects.requireNonNull(key)).setValue(contact);
-        if (!key.equals("")) {
-            Snackbar.make(ContactInfo, "Saving Contact", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+        mClientContactInfo.child(getString(R.string.main_user_db_contact_location)).child(Objects.requireNonNull(mKey)).setValue(contact);
+        if (!mKey.equals("")) {
+            Snackbar.make(ContactInfo, getString(R.string.add_client_saving_contact), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.add_client_saving_contact_action), null).show();
         } else {
-            Snackbar.make(ContactInfo, "Unable to save Please input first and last Name", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+            Snackbar.make(ContactInfo, getString(R.string.add_client_saving_contact_error_msg), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.add_client_saving_contact_action), null).show();
         }
-        return key;
+        return mKey;
     }
 
     private ClientContactDTO readContact(String id) {
